@@ -5,6 +5,7 @@ import Pricing from "./Pricing"
 import Footer from "./Footer"
 import Features from "./Features"
 import VisualFeature from "./VisualFeature"
+import Temoignage from "./Temoignage"
 
 export default function Home (){
 
@@ -14,6 +15,7 @@ export default function Home (){
             <Hero />
             <VisualFeature />
             <Features />
+            <Temoignage />
             <Pricing />
             <Footer />
         </>
