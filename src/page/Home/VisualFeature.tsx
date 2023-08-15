@@ -1,6 +1,7 @@
 import dashImage from '../../assets/dashImage.jpg'
+import { Carousel } from "@material-tailwind/react";
 
-export default function VisualFeature(){
+export default function VisualFeature() {
 
     const features = [
         {
@@ -22,47 +23,62 @@ export default function VisualFeature(){
     ]
 
     return (
-    
-            <section className="py-14">
-                <div className="max-w-screen-xl mx-auto px-4 text-gray-600 gap-16 justify-between md:px-8 lg:flex">
-                    <div>
-                        <div className="max-w-xl space-y-3">
-                            <h3 className="text-indigo-600 font-semibold">
-                                Features
-                            </h3>
-                            <p className="text-gray-800 text-3xl font-semibold sm:text-4xl">
-                                Simple solutions for complex issues
-                            </p>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec congue, nisl eget molestie varius, enim ex faucibus purus
-                            </p>
-                        </div>
-                        <div className="mt-12 max-w-lg lg:max-w-none">
-                            <ul className="space-y-8">
-                                {
-                                    features.map((item, idx) => (
-                                        <li key={idx} className="flex gap-x-4">
-                                            <div className="flex-none w-12 h-12 bg-indigo-50 text-indigo-600 rounded-lg flex items-center justify-center">
-                                                {item.icon}
-                                            </div>
-                                            <div>
-                                                <h4 className="text-lg text-gray-800 font-semibold">
-                                                    {item.title}
-                                                </h4>
-                                                <p className="mt-3">
-                                                    {item.desc}
-                                                </p>
-                                            </div>
-                                        </li>
-                                    ))
-                                }
-                            </ul>
-                        </div>
+
+        <section className="py-14">
+            <div className="max-w-screen-xl mx-auto px-4 text-gray-600 gap-16 justify-between md:px-8 lg:flex">
+                <div>
+                    <div className="max-w-xl space-y-3">
+                        <h3 className="text-indigo-600 font-semibold">
+                            Features
+                        </h3>
+                        <p className="text-gray-800 text-3xl font-semibold sm:text-4xl">
+                            Simple solutions for complex issues
+                        </p>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec congue, nisl eget molestie varius, enim ex faucibus purus
+                        </p>
                     </div>
-                    <div className="mt-12 lg:mt-0">
-                        <img src={dashImage} className="w-full shadow-lg rounded-lg border" />
+                    <div className="mt-12 max-w-lg lg:max-w-none">
+                        <ul className="space-y-8">
+                            {
+                                features.map((item, idx) => (
+                                    <li key={idx} className="flex gap-x-4">
+                                        <div className="flex-none w-12 h-12 bg-indigo-50 text-indigo-600 rounded-lg flex items-center justify-center">
+                                            {item.icon}
+                                        </div>
+                                        <div>
+                                            <h4 className="text-lg text-gray-800 font-semibold">
+                                                {item.title}
+                                            </h4>
+                                            <p className="mt-3">
+                                                {item.desc}
+                                            </p>
+                                        </div>
+                                    </li>
+                                ))
+                            }
+                        </ul>
                     </div>
                 </div>
-            </section>
+
+                <Carousel className="rounded-xl mt-12 lg:mt-0">
+                    <img
+                        src={dashImage}
+                        alt="image 1"
+                        className="h-full w-full object-cover"
+                    />
+                    <img
+                        src={dashImage}
+                        alt="image 2"
+                        className="h-full w-full object-cover"
+                    />
+                    <img
+                        src={dashImage}
+                        alt="image 3"
+                        className="h-full w-full object-cover"
+                    />
+                </Carousel>
+            </div>
+        </section>
     )
 }
