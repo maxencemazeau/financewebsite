@@ -46,9 +46,6 @@ export default function Temoignage() {
                     <h3 className="text-gray-800 text-3xl font-semibold sm:text-4xl">
                         See what others saying about us
                     </h3>
-                    <p className="mt-3 text-gray-600">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc et est hendrerit, porta nunc vitae, gravida justo. Nunc fermentum magna lorem, euismod volutpat arcu volutpat et.
-                    </p>
                 </div>
                 <div className="mt-12">
                     <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -56,8 +53,7 @@ export default function Temoignage() {
                             testimonials.map((item, idx) => (
                                 <li key={idx} className="bg-gray-50 p-4 rounded-xl">
                                     <figure>
-                                        <div className="flex items-center gap-x-4">
-                                            <img src={item.avatar} className="w-16 h-16 rounded-full" />
+                                        <div className="flex items-center gap-x-4">                                  
                                             <div>
                                                 <span className="block text-gray-800 font-semibold">{item.name}</span>
                                                 <span className="block text-gray-600 text-sm mt-0.5">{item.title}</span>
