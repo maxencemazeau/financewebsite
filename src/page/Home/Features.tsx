@@ -110,7 +110,7 @@ export default function Features() {
                         Do more with less complexity
                     </p>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec congue, nisl eget molestie varius, enim ex faucibus purus
+                    Accomplish more with ease. Our user-friendly features empower you to excel in budgeting, spending tracking, and goal planning, all while minimizing complexity.
                     </p>
                 </div>
                 <div className="mt-12">
