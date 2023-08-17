@@ -2,9 +2,9 @@ export default function Pricing (){
 
     const plans = [
         {
-            name: "Enterprise",
-            desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            price: 32,
+            name: "Free trial",
+            desc: "Start your journey to financial success today with our 3 month trial !",
+            price: 0,
             isMostPop: true,
             features: [
                 "Curabitur faucibus",
@@ -15,11 +15,12 @@ export default function Pricing (){
                 "Praesent quis venenatis ipsum",
                 "Duis non diam vel tortor",
             ],
+            call : "Try now"
         },
         {
-            name: "Startup",
-            desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            price: 12,
+            name: "Personnal",
+            desc: "Access all the features and manadge your budget like a pro.",
+            price: 10,
             isMostPop: false,
             features: [
                 "Curabitur faucibus",
@@ -30,6 +31,7 @@ export default function Pricing (){
                 "Praesent quis venenatis ipsum",
                 "Duis non diam vel tortor",
             ],
+            call : "Get started"
         },
     ];
 
@@ -38,15 +40,15 @@ export default function Pricing (){
             <div className="absolute top-0 w-full h-[521px]" style={{ background: "linear-gradient(152.92deg, rgba(192, 132, 252, 0.2) 4.54%, rgba(232, 121, 249, 0.17) 34.2%, rgba(192, 132, 252, 0.1) 77.55%)" }}></div>
             <div className="max-w-screen-xl mx-auto text-gray-600 sm:px-4 md:px-8">
                 <div className='relative max-w-xl mx-auto space-y-3 px-4 sm:text-center sm:px-0'>
-                    <h3 className="text-indigo-600 font-semibold">
+                    <h3 className="text-blue-400 font-semibold">
                         Pricing
                     </h3>
                     <p className='text-gray-800 text-3xl font-semibold sm:text-4xl'>
-                        Pay as you grow
+                        The perfect plan for your finances
                     </p>
                     <div className='max-w-xl'>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam efficitur consequat nunc.
+                        Begin Free, pay as you prosper: Experience effortless budget management, your way.
                         </p>
                     </div>
                 </div>
@@ -55,7 +57,7 @@ export default function Pricing (){
                         plans.map((item, idx) => (
                             <div key={idx} className={`relative flex-1 flex items-stretch flex-col mt-6 sm:mt-0 sm:rounded-xl sm:max-w-md ${item.isMostPop ? "bg-white shadow-lg sm:border" : ""}`}>
                                 <div className="p-4 py-8 space-y-4 border-b md:p-8">
-                                    <span className='text-indigo-600 font-medium'>
+                                    <span className='text-blue-400 font-medium'>
                                         {item.name}
                                     </span>
                                     <div className='text-gray-800 text-3xl font-semibold'>
@@ -64,8 +66,8 @@ export default function Pricing (){
                                     <p>
                                         {item.desc}
                                     </p>
-                                    <button className='px-3 py-3 rounded-lg w-full font-semibold text-sm duration-150 text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700'>
-                                        Get Started
+                                    <button className='px-3 py-3 rounded-lg w-full font-semibold text-sm duration-150 text-white bg-blue-400 hover:bg-indigo-500 active:bg-indigo-700'>
+                                        {item.call}
                                     </button>
                                 </div>
                                 <ul className='p-4 py-8 space-y-3 md:p-8'>
