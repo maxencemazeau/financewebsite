@@ -43,10 +43,7 @@ export default function VisualFeature() {
                             {
                                 features.map((item, idx) => (
                                     <li key={idx} className="flex gap-x-4">
-                                        <div className="flex-none w-12 h-12 bg-indigo-50 text-indigo-600 rounded-lg flex items-center justify-center">
-                                            {item.icon}
-                                        </div>
-                                        <div>
+                                        <div className="block py-2 px-4 text-gray-700 hover:bg-gray-50 font-medium duration-150 active:bg-gray-100 border rounded-lg">
                                             <h4 className="text-lg text-gray-800 font-semibold">
                                                 {item.title}
                                             </h4>
