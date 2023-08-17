@@ -7,8 +7,8 @@ export default function NavBar() {
     // Replace javascript:void(0) paths with your paths
     const navigation = [
         { title: "Features", path: "" },
-        { title: "Integrations", path: "" },
-        { title: "Customers", path: "" },
+        { title: "Services", path: "" },
+        { title: "Testimony", path: "" },
         { title: "Pricing", path: "" }
     ]
 
