@@ -118,7 +118,7 @@ export default function Features() {
                         {
                             features.map((item, idx) => (
                                 <li key={idx} className="flex gap-x-4">
-                                    <div className="flex-none w-12 h-12 bg-indigo-50 text-indigo-600 rounded-lg flex items-center justify-center">
+                                    <div className="flex-none w-12 h-12 bg-blue-50 text-blue-400 rounded-lg flex items-center justify-center">
                                         {item.icon}
                                     </div>
                                     <div>
