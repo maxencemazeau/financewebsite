@@ -1,28 +1,27 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 export default function NavBar() {
 
     const [state, setState] = useState(false)
 
-    // Replace javascript:void(0) paths with your paths
     const navigation = [
-        {title : "Home", path:""},
-        { title: "Features", path: "" },
-        { title: "Testimony", path: "" },
-        { title: "Pricing", path: "" }
+        { title : "Home", path:"Hero"},
+        { title: "Features", path: "Features" },
+        { title: "Testimony", path: "Testimony" },
+        { title: "Pricing", path: "Pricing" }
     ]
+
+    const scrolling = (value : string) => {
+        const scrollTo = document.getElementById(value);
+        scrollTo?.scrollIntoView({ behavior : 'smooth'})
+    }
 
     return (
         <nav className="bg-white border-b w-full md:static md:text-sm md:border-none">
-            <div className="items-center px-4 max-w-screen-xl mx-auto md:flex md:px-8">
+            <div className="bg-white items-center px-4 mx-auto md:flex md:px-8 w-full fixed top-0 z-10">
                 <div className="flex items-center justify-between py-3 md:py-5 md:block">
-                    <a href="javascript:void(0)">
-                        <img
-                            src="https://www.floatui.com/logo.svg"
-                            width={120}
-                            height={50}
-                            alt="Float UI logo"
-                        />
+                    <a id="Hero" href="" className="font-bold text-3xl">
+                        Wise<span className='text-blue-400'>Finance</span>
                     </a>
                     <div className="md:hidden">
                         <button className="text-gray-500 hover:text-gray-800"
@@ -48,9 +47,9 @@ export default function NavBar() {
                             navigation.map((item, idx) => {
                                 return (
                                     <li key={idx} className="text-gray-700 hover:text-indigo-600">
-                                        <a href={item.path} className="block">
+                                        <button onClick={() => scrolling(item.path)} className="block">
                                             {item.title}
-                                        </a>
+                                        </button>
                                     </li>
                                 )
                             })
@@ -58,12 +57,12 @@ export default function NavBar() {
                         <span className='hidden w-px h-6 bg-gray-300 md:block'></span>
                         <div className='space-y-3 items-center gap-x-6 md:flex md:space-y-0'>
                             <li>
-                                <a href="javascript:void(0)" className="block py-3 text-center text-gray-700 hover:text-blue-400 border rounded-lg md:border-none">
+                                <a href="" className="block py-3 text-center text-gray-700 hover:text-blue-400 border rounded-lg md:border-none">
                                     Log in
                                 </a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)" className="block py-3 px-4 font-medium text-center text-white bg-blue-400 hover:bg-indigo-500 active:bg-indigo-700 active:shadow-none rounded-lg shadow md:inline">
+                                <a href="" className="block py-3 px-4 font-medium text-center text-white bg-blue-400 hover:bg-indigo-500 active:bg-indigo-700 active:shadow-none rounded-lg shadow md:inline">
                                     Sign in
                                 </a>
                             </li>

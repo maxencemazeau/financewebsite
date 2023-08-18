@@ -11,13 +11,25 @@ export default function Home (){
 
     return(
         <>
-            <NavBar />
-            <Hero />
-            <VisualFeature />
-            <Features />
-            <Temoignage />
-            <Pricing />
-            <Footer />
+                <NavBar />
+            <div id="Hero">
+                <Hero />
+            </div>    
+            <div id="Features">
+                <VisualFeature />
+            </div>
+            <div>
+                <Features />
+            </div>
+            <div id="Testimony">
+                <Temoignage />
+            </div>
+            <div id="Pricing">
+                <Pricing />
+                </div>    
+            <div>
+                <Footer />
+            </div>
         </>
     )
 }   
