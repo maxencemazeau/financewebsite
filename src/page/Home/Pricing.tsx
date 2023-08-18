@@ -1,4 +1,4 @@
-export default function Pricing (){
+export default function Pricing() {
 
     const plans = [
         {
@@ -7,15 +7,21 @@ export default function Pricing (){
             price: 0,
             isMostPop: true,
             features: [
-                "Curabitur faucibus",
-                "massa ut pretium maximus",
-                "Sed posuere nisi",
-                "Pellentesque eu nibh et neque",
-                "Suspendisse a leo",
-                "Praesent quis venenatis ipsum",
-                "Duis non diam vel tortor",
+                "Customizable Dashboard",
+                "Category Visualization and Insights",
+                "Expense Categorization and Tracking",
+                "Real-time Budget Calculation",
+                "Expense History",
+                "Timeframe Options",
+                "Budget Forecasting",
+                "Income Calculation and Management",
+                "Manage Recurring Payments",
+                "Personal Notes",
+                "Goal Setting",
+                "Allocated Budget Calculation",
+                "Family Account Payment Management",
             ],
-            call : "Try now"
+            call: "Try now"
         },
         {
             name: "Personnal",
@@ -23,15 +29,21 @@ export default function Pricing (){
             price: 10,
             isMostPop: false,
             features: [
-                "Curabitur faucibus",
-                "massa ut pretium maximus",
-                "Sed posuere nisi",
-                "Pellentesque eu nibh et neque",
-                "Suspendisse a leo",
-                "Praesent quis venenatis ipsum",
-                "Duis non diam vel tortor",
+                "Customizable Dashboard",
+                "Category Visualization and Insights",
+                "Expense Categorization and Tracking",
+                "Real-time Budget Calculation",
+                "Expense History",
+                "Timeframe Options",
+                "Budget Forecasting",
+                "Income Calculation and Management",
+                "Manage Recurring Payments",
+                "Personal Notes",
+                "Goal Setting",
+                "Allocated Budget Calculation",
+                "Family Account Payment Management",
             ],
-            call : "Get started"
+            call: "Get started"
         },
     ];
 
@@ -48,7 +60,7 @@ export default function Pricing (){
                     </p>
                     <div className='max-w-xl'>
                         <p>
-                        Begin Free, pay as you prosper: Experience effortless budget management, your way.
+                            Begin Free, pay as you prosper: Experience effortless budget management, your way.
                         </p>
                     </div>
                 </div>
@@ -79,13 +91,13 @@ export default function Pricing (){
                                             <li key={idx} className='flex items-center gap-5'>
                                                 <svg
                                                     xmlns='http://www.w3.org/2000/svg'
-                                                    className='h-5 w-5 text-indigo-600'
+                                                    className='h-5 w-5 text-blue-400'
                                                     viewBox='0 0 20 20'
                                                     fill='currentColor'>
                                                     <path
-                                                        fill-rule='evenodd'
+                                                        fillRule='evenodd'
                                                         d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z'
-                                                        clip-rule='evenodd'></path>
+                                                        clipRule='evenodd'></path>
                                                 </svg>
                                                 {featureItem}
                                             </li>
