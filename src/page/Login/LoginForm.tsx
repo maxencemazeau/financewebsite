@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import axios from 'axios';
+import NavBar from '../Home/NavBar';
 
 interface Inputs {
     username : string,
@@ -29,13 +30,16 @@ const onSubmit: SubmitHandler<Inputs> = async(data) => {
     }
 
     return (
+        <>
         <main className="w-full h-screen flex flex-col items-center justify-center px-4">
             <div className="max-w-sm w-full text-gray-600">
                 <div className="text-center">
-                    <img src="https://floatui.com/logo.svg" width={150} className="mx-auto" />
+                <a href="/" className="font-bold text-4xl">
+                        Wise<span className='text-blue-400'>Finance</span>
+                    </a>
                     <div className="mt-5 space-y-2">
-                        <h3 className="text-gray-800 text-2xl font-bold sm:text-3xl">Log in to your account</h3>
-                        <p className="">Don't have an account? <a href="javascript:void(0)" className="font-medium text-indigo-600 hover:text-indigo-500">Sign up</a></p>
+                        <h3 className="text-gray-800 text-xl font-bold sm:text-3xl">Log in to your account</h3>
+                        <p className="">Don't have an account? <a href="/Register" className="font-medium text-blue-400 hover:text-indigo-500">Sign up</a></p>
                     </div>
                 </div>
                 <form
@@ -64,15 +68,17 @@ const onSubmit: SubmitHandler<Inputs> = async(data) => {
                         />
                     </div>
                     <button
-                        className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150"
+                        className="w-full px-4 py-2 text-white font-medium bg-blue-400 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150"
                     >
                         Sign in
                     </button>
                     <div className="text-center">
-                        <a href="" className="hover:text-indigo-600">Forgot password?</a>
+                        <a href="" className="hover:text-indigo-600 mr-4">Forgot password?</a>
+                        <a href="/" className="text-blue-400 hover:text-indigo-600">Back to home page</a>
                     </div>
                 </form>
             </div>
         </main>
+    </>
     )
 }
