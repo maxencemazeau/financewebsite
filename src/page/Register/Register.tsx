@@ -77,7 +77,7 @@ export default function Register () {
                         <p className="">Already an account ? <a href="/Register" className="font-medium text-blue-400 hover:text-indigo-500">Log in</a></p>
                     </div>
                     <div className="mt-5 space-y-2">
-                    <a href="/Register" className="font-medium hover:text-indigo-500">Back to home page</a>
+                    <a href="/" className="font-medium hover:text-indigo-500">Back to home page</a>
                     </div>
                     </form>
                 </div>
