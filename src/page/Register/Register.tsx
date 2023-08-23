@@ -1,6 +1,7 @@
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import axios from 'axios';
+import { Input } from '@material-tailwind/react';
 
 interface UserRegister {
     firstName : string,
