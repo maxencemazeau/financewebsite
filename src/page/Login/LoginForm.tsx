@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import axios from 'axios';
-import NavBar from '../Home/NavBar';
 
 interface Inputs {
     username : string,
@@ -9,6 +8,8 @@ interface Inputs {
 }
 
 export default function LoginForm() {
+
+    const [loginError,setLoginError] = useState<boolean>(false);
 
 const {
     register,
@@ -20,13 +21,12 @@ const onSubmit: SubmitHandler<Inputs> = async(data) => {
     try {
         const response = await axios.get('http://127.0.0.1:8080/login', { params : {username : data.username, password : data.password}});
         if(response.data[0].username === data.username && response.data[0].password === data.password){
-            console.log('loginSuccess')
+            setLoginError(false);
         }
      }
      catch(error){
-        console.log('Mot de passe ou username non correcte')
+        setLoginError(true);
      };
-     {}
     }
 
     return (
@@ -72,6 +72,11 @@ const onSubmit: SubmitHandler<Inputs> = async(data) => {
                     >
                         Sign in
                     </button>
+                    {loginError === true ? 
+                    <p className="text-red-500">Wrong username or password</p>
+                    :
+                     <p></p>
+                     }
                     <div className="text-center">
                         <a href="" className="hover:text-indigo-600 mr-4">Forgot password?</a>
                         <a href="/" className="text-blue-400 hover:text-indigo-600">Back to home page</a>

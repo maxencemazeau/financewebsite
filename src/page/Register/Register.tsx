@@ -1,13 +1,14 @@
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import axios from 'axios';
+import { ErrorMessage } from "@hookform/error-message"
 
 interface UserRegister {
     firstName : string,
     lastName : string,
     email : string,
     username : string,
-    password : string
+    password : string,
 }
 
 export default function Register () {
@@ -42,14 +43,14 @@ export default function Register () {
                     >
                         <div>
                             <label className="font-medium">
-                                Full name
+                                First name
                             </label>
                             <input
                                 type="text"
-                                {...register("firstName", {required : true})}
-                                required
+                                {...register("firstName", {required : "This field is required"})}
                                 className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-gray-800 shadow-sm rounded-lg"
                             />
+                            <ErrorMessage errors={errors} name="firstName" as="p" />
                         </div>
                         <div>
                             <label className="font-medium">
@@ -57,10 +58,11 @@ export default function Register () {
                             </label>
                             <input
                                 type="text"
-                                {...register("lastName", {required : true})}
+                                {...register("lastName", {required : "This field is required"})}
                                 required
                                 className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-gray-800 shadow-sm rounded-lg"
                             />
+                             <ErrorMessage errors={errors} name="lastName" as="p" />
                         </div>
                         <div>
                             <label className="font-medium">
@@ -68,7 +70,7 @@ export default function Register () {
                             </label>
                             <input
                                 type="email"
-                                {...register("email", {required : true})}
+                                {...register("email", {required : "This field is required"})}
                                 required
                                 className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-gray-800 shadow-sm rounded-lg"
                             />
@@ -79,7 +81,7 @@ export default function Register () {
                             </label>
                             <input
                                 type="text"
-                                {...register("username", {required : true})}
+                                {...register("username", {required : "This field is required"})}
                                 required
                                 className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-gray-800 shadow-sm rounded-lg"
                             />
@@ -90,10 +92,11 @@ export default function Register () {
                             </label>
                             <input
                                 type="password"
-                                {...register("password", {required : true})}
+                                {...register("password", {required : true, minLength : { value : 6, message : 'Your password my contain a minium of 6 characters'}})}
                                 required
                                 className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-gray-800 shadow-sm rounded-lg"
                             />
+                             <ErrorMessage errors={errors} name="password" className='text-red-500' as="p" />
                         </div>
                         <button
                          type="submit"   className="w-full px-4 py-2 text-white font-medium bg-blue-400 hover:bg-indigo-600 active:bg-indigo-600 rounded-lg duration-150"
