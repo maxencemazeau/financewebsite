@@ -37,6 +37,15 @@ const options = {
       beginAtZero: true,
     },
   },
+  maintainAspectRatio: false, // Allow chart to resize based on container size
+  responsive: true, // Make chart responsive
+  plugins: {
+    legend: {
+      display: false, // Hide legend for more space
+    },
+  },
+  height: 300,
+  width : 600 // Set the height of the chart
 };
 
 
@@ -44,9 +53,9 @@ const DashboardChart = () => {
   return (
     <section>
       <div className="w-full mx-auto px-4 md:px-8">
-      <ul className="border mx-auto px-4 w-full rounded-lg md:px-8">
-        <div className="flex items-center justify-between p-4">
-          <div>
+      <ul className="border px-4 w-full rounded-lg md:px-8">
+        <div className="flex items-center p-4">
+          <div className='h-80 w-full'>
             <Line data={data} options={options} />
           </div>
         </div>
