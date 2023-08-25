@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import DashboardNavBar from "./DashboardNavBar";
 import DashboardCategory from './DashboardCategory';
+import DashboardChart from "./DashboardChart";
 
 export default function DashboardHome(){
 
@@ -19,8 +20,11 @@ export default function DashboardHome(){
         <div className={`rounded-lg bg-gray-100 ${headerHeight} lg:fixed`}>
             <DashboardNavBar  handleHeight={handleHeaderHeight} />
         </div>
-        <div className="flex flex-col col-2 grow lg:ml-40">
+        <div className="flex flex-col flex-1 lg:ml-40">     
         <DashboardCategory />
+        <div className="sm:w-full lg:w-3/4">
+        <DashboardChart />
+        </div>
         </div>
         </div>
     )
