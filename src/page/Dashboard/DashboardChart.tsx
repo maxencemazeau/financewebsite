@@ -18,7 +18,6 @@ ChartJS.register(
   LineElement,
 );
 
-
 const data = {
   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
   datasets: [
@@ -30,40 +29,40 @@ const data = {
   ],
 };
 
-
 const options = {
   scales: {
     y: {
       beginAtZero: true,
     },
   },
-  maintainAspectRatio: false, // Allow chart to resize based on container size
-  responsive: true, // Make chart responsive
+  maintainAspectRatio: false,
+  responsive: true,
   plugins: {
     legend: {
-      display: false, // Hide legend for more space
+      display: false,
     },
   },
-  height: 300,
-  width : 600 // Set the height of the chart
+  height: 200,
+  width: 500,
 };
-
 
 const DashboardChart = () => {
   return (
-    <section>
+    <section className="pb-14">
       <div className="w-full mx-auto px-4 md:px-8">
-      <ul className="border px-4 w-full rounded-lg md:px-8">
-        <div className="flex items-center p-4">
-          <div className='h-80 w-full'>
-            <Line data={data} options={options} />
+        <ul className="border px-4 w-full rounded-lg md:px-8">
+          <div className="flex flex-col items-center h-80">
+            <h4 className="py-4 text-gray-800 font-semibold">
+              Title of the chart
+            </h4>
+            <div className="w-full h-60">
+              <Line data={data} options={options} />
+            </div>
           </div>
-        </div>
-      </ul>
+        </ul>
       </div>
     </section>
   );
 };
-
 
 export default DashboardChart;
