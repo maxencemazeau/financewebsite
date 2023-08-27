@@ -33,7 +33,7 @@ const Header : React.FC<DashboardNavBarProps> = ({ handleHeight }) => {
              
               className="block mt-4 rounded-lg px-4 py-2 text-sm font-medium text-gray-700"
             >
-              HeaderApropos
+              Dashboard
             </button>
           </li>
 
@@ -42,7 +42,7 @@ const Header : React.FC<DashboardNavBarProps> = ({ handleHeight }) => {
               
               className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-700"
             >
-              HeaderProjets
+              Expenses
             </button>
           </li>
 
@@ -51,7 +51,23 @@ const Header : React.FC<DashboardNavBarProps> = ({ handleHeight }) => {
               
               className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-700"
             >
-              HeaderContact
+              Incomes
+            </button>
+          </li>
+          <li>
+            <button
+              
+              className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-700"
+            >
+              Goals and notes
+            </button>
+          </li>
+          <li>
+            <button
+              
+              className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-700"
+            >
+              Budget Planner
             </button>
           </li>
           

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function DahsboardGoals(){
+export default function DashboardGoals(){
 
     const tableItems = [
         {
@@ -54,7 +54,7 @@ export default function DahsboardGoals(){
         <div className="flex h-80">
 
         <table className="w-full table-auto text-sm text-left">
-                    <thead className="bg-gray-50 text-gray-600 font-medium border-b">
+                    <thead className="bg-gray-50 font-medium border-b">
                         <tr>
                             <th className="py-3 px-6">Goals</th>
                             <th></th>

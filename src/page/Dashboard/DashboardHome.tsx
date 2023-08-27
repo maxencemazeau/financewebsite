@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import DashboardNavBar from "./DashboardNavBar";
 import DashboardCategory from './DashboardCategory';
 import DashboardChart from "./DashboardChart";
-import DahsboardGoals from "./DahsboardGoals";
+import DashboardGoals from "./DashboardGoals";
+import DashboardExpenses from "./DahsboardExpenses";
+import DashboardIncomes from "./DashboardIncomes";
 
 export default function DashboardHome() {
 
@@ -28,7 +30,15 @@ export default function DashboardHome() {
             <DashboardChart />
           </div>
           <div className="w-full lg:w-1/4">
-            <DahsboardGoals />
+            <DashboardGoals />
+          </div>
+        </div>
+        <div className="flex flex-col lg:flex-row">
+          <div className="w-full lg:w-1/4">
+            <DashboardIncomes />
+          </div>
+          <div className="w-full lg:w-3/4">
+            <DashboardExpenses />
           </div>
         </div>
 
