@@ -23,8 +23,8 @@ const data = {
   datasets: [
     {
       data: [10, 20, 15, 25, 30, 22, 18],
-      borderColor: 'rgba(75, 192, 192, 1)',
-      backgroundColor: 'rgba(75, 192, 192, 0.2)',
+      borderColor: 'rgba(96, 165, 250)',
+      backgroundColor: 'rgba(244, 244, 244)',
     },
   ],
 };

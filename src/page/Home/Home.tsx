@@ -6,6 +6,7 @@ import Footer from "./Footer"
 import Features from "./Features"
 import VisualFeature from "./VisualFeature"
 import Temoignage from "./Temoignage"
+import Banner from "../Banner"
 
 export default function Home (){
 
@@ -13,6 +14,9 @@ export default function Home (){
         <>
                 <NavBar />
             <div id="Hero">
+                <div className="z-40 mt-20">
+                <Banner />
+                </div>
                 <Hero />
             </div>    
             <div id="Features">
