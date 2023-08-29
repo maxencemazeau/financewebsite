@@ -5,6 +5,7 @@ import DashboardChart from "./DashboardChart";
 import DashboardGoals from "./DashboardGoals";
 import DashboardExpenses from "./DahsboardExpenses";
 import DashboardIncomes from "./DashboardIncomes";
+import Banner from "../Banner";
 
 export default function DashboardHome() {
 
@@ -19,11 +20,13 @@ export default function DashboardHome() {
   };
 
   return (
+    <>
     <div className="flex flex-col lg:flex-row">
       <div className={`rounded-lg bg-gray-100 ${headerHeight} lg:fixed`}>
         <DashboardNavBar handleHeight={handleHeaderHeight} />
       </div>
       <div className="flex flex-col flex-1 lg:ml-40">
+      <Banner />
         <DashboardCategory />
         <div className="flex flex-col lg:flex-row">
           <div className="w-full lg:w-3/4">
@@ -44,5 +47,6 @@ export default function DashboardHome() {
 
       </div>
     </div>
+    </>
   )
 }

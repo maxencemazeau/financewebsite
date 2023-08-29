@@ -51,7 +51,7 @@ export default function DashboardGoals(){
         <section className="pb-14">
       <div className="w-full mx-auto px-4 md:px-8 lg:pl-2 lg:pr-8">
       <ul className="border w-full rounded-lg">
-        <div className="flex h-80">
+        <div className="flex h-96">
 
         <table className="w-full table-auto text-sm text-left">
                     <thead className="bg-gray-50 font-medium border-b">
