@@ -86,7 +86,7 @@ export default function DashboardExpenses(){
                                         <span className="block text-gray-700 text-sm font-medium">{item.buyerName}</span>
                                     </td>
                                     <td  className=" py-3 px-6 whitespace-nowrap">
-                                        <span className="block text-gray-700 text-sm font-medium">{item.amount}</span>
+                                        <span className="block text-gray-700 text-sm font-medium">{item.amount} CAD</span>
                                     </td>
                                 </tr>
                             ))

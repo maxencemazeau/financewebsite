@@ -2,6 +2,7 @@ import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import axios from 'axios';
 import { ErrorMessage } from "@hookform/error-message"
+import Banner from '../Banner';
 
 interface UserRegister {
     firstName : string,
@@ -26,6 +27,8 @@ export default function Register () {
     }
 
     return (
+        <>
+        <Banner />
         <main className="flex overflow-hidden">
             <div className="flex-1 hidden lg:block">
                 <img src="https://res.cloudinary.com/floatui/image/upload/v1670701901/scott-webb-NQymDb5XqC4-unsplash_ezrolm.jpg" className="w-full h-screen object-cover" />
@@ -113,5 +116,6 @@ export default function Register () {
                 </div>
             </div>
         </main>
+        </>
     )
 }
