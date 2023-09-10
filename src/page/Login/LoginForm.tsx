@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import axios from 'axios';
+import Banner from '../Banner';
 
 interface Inputs {
     username : string,
@@ -31,6 +32,7 @@ const onSubmit: SubmitHandler<Inputs> = async(data) => {
 
     return (
         <>
+        <Banner />
         <main className="w-full h-screen flex flex-col items-center justify-center px-4">
             <div className="max-w-sm w-full text-gray-600">
                 <div className="text-center">
