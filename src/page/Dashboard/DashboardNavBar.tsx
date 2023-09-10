@@ -70,7 +70,14 @@ const Header : React.FC<DashboardNavBarProps> = ({ handleHeight }) => {
               Budget Planner
             </button>
           </li>
-          
+          <li>
+            <a
+              href='/'
+              className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-700"
+            >
+              Back to website
+            </a>
+          </li>
         </ul>
       </div>
     </div>
