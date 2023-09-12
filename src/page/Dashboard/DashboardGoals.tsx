@@ -1,50 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axiosInstance from '../../hooks/useAxios';
+import useLocalStorage from '../../hooks/useLocalStorage';
+
+interface UserGoal {
+    goalId: number,
+    goalTypeId: number,
+    userId : number,
+    targetAmount: number,
+    goalName : string
+}
 
 export default function DashboardGoals(){
 
-    const tableItems = [
-        {
-            avatar: "https://images.unsplash.com/photo-1511485977113-f34c92461ad9?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ",
-            name: "Liam James",
-            email: "liamjames@example.com",
-            phone_nimber: "+1 (555) 000-000",
-            position: "Software engineer",
-            salary: "$100K"
-        },
-        {
-            avatar: "https://randomuser.me/api/portraits/men/86.jpg",
-            name: "Olivia Emma",
-            email: "oliviaemma@example.com",
-            phone_nimber: "+1 (555) 000-000",
-            position: "Product designer",
-            salary: "$90K"
-        },
-        {
-            avatar: "https://randomuser.me/api/portraits/women/79.jpg",
-            name: "William Benjamin",
-            email: "william.benjamin@example.com",
-            phone_nimber: "+1 (555) 000-000",
-            position: "Front-end developer",
-            salary: "$80K"
-        },
-        {
-            avatar: "https://api.uifaces.co/our-content/donated/xZ4wg2Xj.jpg",
-            name: "Henry Theodore",
-            email: "henrytheodore@example.com",
-            phone_nimber: "+1 (555) 000-000",
-            position: "Laravel engineer",
-            salary: "$120K"
-        },
-        {
-            avatar: "https://images.unsplash.com/photo-1439911767590-c724b615299d?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ",
-            name: "Amelia Elijah",
-            email: "amelia.elijah@example.com",
-            phone_nimber: "+1 (555) 000-000",
-            position: "Open source manager",
-            salary: "$75K"
-        },
-        
-    ]
+    const [user] = useLocalStorage('user', []);
+    const [userGoal, setUserGoal] = useState<UserGoal[]>([])
+
+    useEffect(() => {
+        const fetch = async() => {
+            const response = await axiosInstance.get(`/goalById/${user.userId}`)
+            setUserGoal(response.data);
+        }
+
+        fetch();
+    }, [user.userId])
+
 
     return(
         <>
@@ -62,15 +41,15 @@ export default function DashboardGoals(){
                     </thead>
                     <tbody className="text-gray-600 divide-y">
                         {
-                            tableItems.map((item, idx) => (
-                                <tr key={idx}>
+                            userGoal.map((item, goalId) => (
+                                <tr key={goalId}>
                                     <td className="py-3 px-6 whitespace-nowrap">
                                         <div>
-                                            <span className="block text-gray-700 text-sm font-medium">{item.name}</span>
+                                            <span className="block text-gray-700 text-sm font-medium">{item.goalName}</span>
                                         </div>
                                     </td>
                                     <td  className=" py-3 px-6 whitespace-nowrap">
-                                        <span className="block text-gray-700 text-sm font-medium">Hello</span>
+                                        <span className="block text-gray-700 text-sm font-medium">{item.targetAmount}</span>
                                     </td>
                                 </tr>
                             ))
