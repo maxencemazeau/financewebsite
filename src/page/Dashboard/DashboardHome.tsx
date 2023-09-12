@@ -6,11 +6,13 @@ import DashboardGoals from "./DashboardGoals";
 import DashboardExpenses from "./DahsboardExpenses";
 import DashboardIncomes from "./DashboardIncomes";
 import Banner from "../Banner";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 export default function DashboardHome() {
 
   const [headerHeight, setHeaderHeight] = useState("h-16");
-
+  const data = localStorage.getItem('user');
+  console.log(data);
   const handleHeaderHeight = (isExpanded: any) => {
     if (isExpanded) {
       setHeaderHeight("h-64");

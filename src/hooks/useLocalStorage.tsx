@@ -19,8 +19,13 @@ const useLocalStorage = (key: StorageKey, defaultValue: any) =>{
     useEffect(() => {
         localStorage.setItem(key, JSON.stringify(value));
     }, [value, key])
+
+    function clearUserData(){
+        localStorage.removeItem(key);
+        setValue(defaultValue);
+    }
     
-    return[value, setValue];
+    return[value, setValue, clearUserData];
 }
 
 export default useLocalStorage;
