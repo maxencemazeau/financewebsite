@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axiosInstance from '../../hooks/useAxios';
 import useLocalStorage from '../../hooks/useLocalStorage';
+import TableContent from '../../components/TableContent';
 
 interface UserGoal {
     goalId: number,
@@ -24,6 +25,13 @@ export default function DashboardGoals(){
         fetch();
     }, [user.userId])
 
+    // const tableData = userGoal.map((item) => {
+    //     return {
+    //         goalId : item.goalId,
+    //         goalName : item.goalName
+    //     }
+    // })
+
 
     return(
         <>
@@ -40,20 +48,10 @@ export default function DashboardGoals(){
                         </tr>
                     </thead>
                     <tbody className="text-gray-600 divide-y">
-                        {
-                            userGoal.map((item, goalId) => (
-                                <tr key={goalId}>
-                                    <td className="py-3 px-6 whitespace-nowrap">
-                                        <div>
-                                            <span className="block text-gray-700 text-sm font-medium">{item.goalName}</span>
-                                        </div>
-                                    </td>
-                                    <td  className=" py-3 px-6 whitespace-nowrap">
-                                        <span className="block text-gray-700 text-sm font-medium">{item.targetAmount}</span>
-                                    </td>
-                                </tr>
-                            ))
-                        }
+                    {userGoal.map((item, goalId) => (
+                                <TableContent key={goalId} content={{data : [item.goalName, item.targetAmount]}} />
+                                ))}
+                         
                     </tbody>
                 </table>
         </div>
