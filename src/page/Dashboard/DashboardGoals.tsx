@@ -25,13 +25,6 @@ export default function DashboardGoals(){
         fetch();
     }, [user.userId])
 
-    // const tableData = userGoal.map((item) => {
-    //     return {
-    //         goalId : item.goalId,
-    //         goalName : item.goalName
-    //     }
-    // })
-
 
     return(
         <>
