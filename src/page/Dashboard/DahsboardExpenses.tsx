@@ -35,7 +35,6 @@ export default function DashboardExpenses(){
         fetch();
     },[])
 
-    console.log(userExpense);
     return(
         <>
         <section className="pb-14">

@@ -84,11 +84,11 @@ const Header : React.FC<DashboardNavBarProps> = ({ handleHeight }) => {
               Back to website
             </a>
           </li>
-          <li>
+          <li className="bg-red-400 rounded-md">
             <a
               onClick={Logout}
               href='/login'
-              className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-700"
+              className="block rounded-lg px-4 py-2 text-sm text-white font-semibold"
             >
               Disconnect
             </a>

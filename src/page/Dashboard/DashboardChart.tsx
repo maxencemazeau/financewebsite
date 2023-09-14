@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
+import useAxios from '../../hooks/useAxios';
+import useLocalStorage from '../../hooks/useLocalStorage';
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -17,17 +20,6 @@ ChartJS.register(
   PointElement,
   LineElement,
 );
-
-const data = {
-  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-  datasets: [
-    {
-      data: [10, 20, 15, 25, 30, 22, 18],
-      borderColor: 'rgba(96, 165, 250)',
-      backgroundColor: 'rgba(244, 244, 244)',
-    },
-  ],
-};
 
 const options = {
   scales: {
@@ -65,7 +57,66 @@ const items = [
   },
 ]
 
+interface ExpenseChart {
+  expenseId : number,
+  expenseAmount: number,
+  purchaseDate: string
+}
+
+interface ChartParams{
+  labels: string[];
+    datasets: {
+      data: number[];
+      borderColor: string,
+      backgroundColor: string
+    }[];
+}
+
 const DashboardChart = () => {
+
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [user] = useLocalStorage('user', []);
+  const [userExpenseData, setUserExpenseData] = useState<ExpenseChart[]>([]);
+
+  const [data, setData] = useState<ChartParams>({
+    labels: [],
+    datasets: [
+      {
+        data: [],
+        borderColor: 'rgba(96, 165, 250)',
+        backgroundColor: 'rgba(244, 244, 244)',
+      },
+    ]});
+
+  useEffect(() => {
+      if(startDate && endDate){
+        dateCharts();
+      }
+  }, [startDate, endDate])
+
+  const formattedDate = (purchaseDate: string) => {
+      const date = new Date(purchaseDate);
+      return date.getDate();
+  }
+
+  const dateCharts = async() => {
+      const start = new Date(startDate);
+      const end = new Date(endDate)
+      const response = await useAxios.get(`/expenseByDate`, { params :{ userId: user.userId, startDate: start, endDate: end}});
+      const dateFormat: ExpenseChart[] = response.data.map((item: any) => ({
+          ...item,
+          purchaseDate: formattedDate(item.purchaseDate)
+      })); 
+
+    const labelData = dateFormat.map((item) => item.purchaseDate);
+    const dataData = dateFormat.map((item) => item.expenseAmount);
+
+    setData({labels: labelData, datasets: [{data: dataData, borderColor: 'rgba(96, 165, 250)',
+    backgroundColor: 'rgba(244, 244, 244)',}]})
+
+  }
+
   return (
     <section className="pb-14">
       <div className="w-full mx-auto px-4 md:px-8">
@@ -84,9 +135,9 @@ const DashboardChart = () => {
             </div>
             <div className='flex pb-4'>
                 <label className='bg-blue-400 rounded-l-lg px-4 py-2 border-gray-300 font-semibold text-white h-10'>Start</label>
-                <input type="date" className='border-t border-r border-b p-2 mr-4 border-gray-300 rounded-r-lg h-10'></input>
+                <input type="date" onChange={(e) => setStartDate(e.target.value)} className='border-t border-r border-b p-2 mr-4 border-gray-300 rounded-r-lg h-10'></input>
                 <label className='bg-orange-400 rounded-l-lg px-4 py-2 border-gray-300 font-semibold text-white h-10'>End</label>
-                <input type='date' className='border-t border-r border-b p-2 border-gray-300 rounded-r-lg h-10'></input>
+                <input type='date' onChange={(e) => setEndDate(e.target.value)} className='border-t border-r border-b p-2 border-gray-300 rounded-r-lg h-10'></input>
               </div>
             <div className="w-full h-60">
               <Line data={data} options={options} />

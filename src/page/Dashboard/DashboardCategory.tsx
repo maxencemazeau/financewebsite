@@ -18,7 +18,7 @@ const DashboardCategory: React.FC= () =>{
 
     useEffect(() => {
         const fetch = async() => {
-            const response = await axiosInstance.get(`/userCategory/${user.userId}`);
+            const response = await axiosInstance.get(`/userDashboardCategory/${user.userId}`);
             const userCategories: Integrations[] = response.data; 
 
             userCategories.forEach((userCategory: Integrations) => {
