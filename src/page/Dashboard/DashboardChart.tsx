@@ -63,6 +63,7 @@ const DashboardChart = () => {
   const [user] = useLocalStorage('user', []);
   const [userExpenseData, setUserExpenseData] = useState<ExpenseChart[]>([]);
   const [dateModal, setDateModal] = useState<boolean>(false);
+  const [dataError, setDataError] = useState<boolean>(false);
   
 
   const [data, setData] = useState<ChartParams>({
@@ -88,8 +89,14 @@ const DashboardChart = () => {
 
   const dateCharts = async() => {
       const start = new Date(startDate);
-      const end = new Date(endDate)
+      const end = new Date(endDate);
+      console.log(start + "" + end);
       const response = await useAxios.get(`/expenseByDate`, { params :{ userId: user.userId, startDate: start, endDate: end}});
+      if(response.data.length === 0){
+        setDataError(true);
+      } else {
+        setDataError(false);
+      }
       const dateFormat: ExpenseChart[] = response.data.map((item: any) => ({
           ...item,
           purchaseDate: formattedDate(item.purchaseDate)
@@ -112,7 +119,8 @@ const DashboardChart = () => {
               <ChartsTitle />
             </div>
             <div className='flex pb-4'>
-              <ChatsDropDown dateModal={dateModal} setDateModal={setDateModal}/>
+              <ChatsDropDown setDateModal={setDateModal} setStartDate={setStartDate} setEndDate={setEndDate}/>
+              {dataError && <p className="px-2 py-2 text-red-400 font-semibold">No data found for this period of time</p>}
               { dateModal && <ChartDateModal onClose={() => setDateModal(false)} setStartDate={setStartDate} setEndDate={setEndDate} />}
               </div>
             <div className="w-full h-60">
