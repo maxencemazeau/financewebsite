@@ -58,8 +58,8 @@ interface ChartParams{
 
 const DashboardChart = () => {
 
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
+  const [startDate, setStartDate] = useState<string>('');
+  const [endDate, setEndDate] = useState<string>('');
   const [user] = useLocalStorage('user', []);
   const [userExpenseData, setUserExpenseData] = useState<ExpenseChart[]>([]);
   const [dateModal, setDateModal] = useState<boolean>(false);
@@ -113,7 +113,7 @@ const DashboardChart = () => {
             </div>
             <div className='flex pb-4'>
               <ChatsDropDown dateModal={dateModal} setDateModal={setDateModal}/>
-              { dateModal && <ChartDateModal onClose={() => setDateModal(false)} />}
+              { dateModal && <ChartDateModal onClose={() => setDateModal(false)} setStartDate={setStartDate} setEndDate={setEndDate} />}
               </div>
             <div className="w-full h-60">
               <Line data={data} options={options} />

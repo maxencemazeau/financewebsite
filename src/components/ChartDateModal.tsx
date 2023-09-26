@@ -1,14 +1,14 @@
 import React, { useState } from "react"
 
 interface ChartDateModalProps{
-    onClose : () => void
+    onClose : () => void,
+    setStartDate: (value : string) => void,
+    setEndDate: (value: string) => void
 }
 
-export default function ChartDateModal({onClose}: ChartDateModalProps) {
+export default function ChartDateModal({onClose, setStartDate, setEndDate}: ChartDateModalProps) {
 
     const [state, setState] = useState(true);
-    const [startDate, setStartDate] = useState('');
-    const [endDate, setEndDate] = useState('');
 
     const handleClose = () => {
         onClose();
