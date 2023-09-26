@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
 import useAxios from '../../hooks/useAxios';
 import useLocalStorage from '../../hooks/useLocalStorage';
+import ChatsDropDown from '../../components/ChartDropDown';
 
 import {
   Chart as ChartJS,
@@ -13,6 +14,8 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import ChartsTitle from '../../components/ChartTitle';
+import ChartDateModal from '../../components/ChartDateModal';
 
 ChartJS.register(
   CategoryScale,
@@ -38,25 +41,6 @@ const options = {
   width: 500,
 };
 
-const items = [
-  {
-    title: "Expenses",
-    desc: "1450"
-  },
-  {
-    title: "Total",
-    desc: "1450"
-  },
-  {
-    title: "Used",
-    desc: "1450"
-  },
-  {
-    title: "Month",
-    desc: "2300"
-  },
-]
-
 interface ExpenseChart {
   expenseId : number,
   expenseAmount: number,
@@ -78,6 +62,8 @@ const DashboardChart = () => {
   const [endDate, setEndDate] = useState('');
   const [user] = useLocalStorage('user', []);
   const [userExpenseData, setUserExpenseData] = useState<ExpenseChart[]>([]);
+  const [dateModal, setDateModal] = useState<boolean>(false);
+  
 
   const [data, setData] = useState<ChartParams>({
     labels: [],
@@ -123,21 +109,11 @@ const DashboardChart = () => {
         <ul className="border px-4 w-full rounded-lg md:px-8">
           <div className="flex flex-col h-96">
             <div className='flex items-center'>
-              {items.map((item, id) => (
-                <div key={id} className='py-4'>
-                  <p className='text-sm'>{item.title}</p>
-                  <h4 className="text-gray-800 mr-8 font-semibold">
-                    {item.desc}
-                  </h4>
-                </div>
-              ))}
-
+              <ChartsTitle />
             </div>
             <div className='flex pb-4'>
-                <label className='bg-blue-400 rounded-l-lg px-4 py-2 border-gray-300 font-semibold text-white h-10'>Start</label>
-                <input type="date" onChange={(e) => setStartDate(e.target.value)} className='border-t border-r border-b p-2 mr-4 border-gray-300 rounded-r-lg h-10'></input>
-                <label className='bg-orange-400 rounded-l-lg px-4 py-2 border-gray-300 font-semibold text-white h-10'>End</label>
-                <input type='date' onChange={(e) => setEndDate(e.target.value)} className='border-t border-r border-b p-2 border-gray-300 rounded-r-lg h-10'></input>
+              <ChatsDropDown dateModal={dateModal} setDateModal={setDateModal}/>
+              { dateModal && <ChartDateModal onClose={() => setDateModal(false)} />}
               </div>
             <div className="w-full h-60">
               <Line data={data} options={options} />
