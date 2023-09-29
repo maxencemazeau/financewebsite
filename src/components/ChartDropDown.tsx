@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from "react"
 import { start } from "repl"
 
-interface ChartDropDownProps{
-    setDateModal: (value : boolean) => void,
-    setStartDate: (value : string) => void,
+interface ChartDropDownProps {
+    setDateModal: (value: boolean) => void,
+    setStartDate: (value: string) => void,
     setEndDate: (value: string) => void
-  }
-  
+}
 
-const ChatsDropDown: React.FC<ChartDropDownProps> = ({setDateModal, setStartDate, setEndDate}) => {
+
+const ChatsDropDown: React.FC<ChartDropDownProps> = ({ setDateModal, setStartDate, setEndDate }) => {
 
     const menuItems = [
         ["Today", "bg-blue-600", "text-black"],
@@ -24,10 +24,10 @@ const ChatsDropDown: React.FC<ChartDropDownProps> = ({setDateModal, setStartDate
     })
 
     const [state, setState] = useState(false)
- 
+
     const selectMenuRef = useRef<HTMLButtonElement | null>();
 
-    let currentDate: Date;
+    let currentDate: Date = new Date();
     let startDate: Date;
     let endDate: Date;
 
@@ -43,15 +43,14 @@ const ChatsDropDown: React.FC<ChartDropDownProps> = ({setDateModal, setStartDate
 
     }, [])
 
-    const formattedDateToMidnight = (date : Date) => {
+    const formattedDateToMidnight = (date: Date) => {
         date.setUTCHours(0, 0, 0, 0);
         return date.toISOString();
     }
 
-    const dropDownTime = async(selectedValue : any) => {
-        switch(selectedValue){
+    const dropDownTime = async (selectedValue: any) => {
+        switch (selectedValue) {
             case "Today":
-                currentDate = new Date();
                 currentDate.setUTCHours(0, 0, 0, 0);
                 const formattedDate = currentDate.toISOString();
                 setStartDate(formattedDate);
@@ -65,13 +64,18 @@ const ChatsDropDown: React.FC<ChartDropDownProps> = ({setDateModal, setStartDate
                 setEndDate(formattedDateToMidnight(endDate));
                 break;
             case "This Month":
-                console.log(3);
+                startDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+                endDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+                setStartDate(formattedDateToMidnight(startDate));
+                setEndDate(formattedDateToMidnight(endDate));
                 break;
             case "This Year":
-                console.log(4);
+                startDate = new Date(currentDate.getFullYear(), 0);
+                endDate = new Date(currentDate.getFullYear() + 1, 0)
+                setStartDate(formattedDateToMidnight(startDate));
+                setEndDate(formattedDateToMidnight(endDate));
                 break;
             case "Personalize date":
-                console.log(5);
                 setDateModal(true);
                 break;
         }
@@ -104,12 +108,12 @@ const ChatsDropDown: React.FC<ChartDropDownProps> = ({setDateModal, setStartDate
                                         key={idx}
                                         onClick={() => {
                                             setSelectedItem({
-                                              item: el,
-                                              idx,
+                                                item: el,
+                                                idx,
                                             });
                                             dropDownTime(el[0]);
-                                          }}
-                                        
+                                        }}
+
                                         role="option"
                                         aria-selected={selectedItem.idx === idx ? true : false}
                                         className={`${selectedItem.idx === idx ? 'text-indigo-600 bg-indigo-50' : ''} flex items-center justify-between gap-2 px-3 cursor-default py-2 duration-150 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50`}
