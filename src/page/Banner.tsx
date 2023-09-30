@@ -9,7 +9,7 @@ export default function Banner(){
                         </svg>
                     </div>
                     <p className="py-2 font-medium">
-                        The website is in work in progress, features may not work yet.
+                        The website is in work in progress, features may not work yet. Navigate to the Dashboard with /Dashboard
                     </p>
                 </div>
             </div>

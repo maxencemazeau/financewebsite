@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import axios from 'axios';
 import Banner from '../Banner';
+import axiosInstance from '../../hooks/useAxios';
+import useLocalStorage from '../../hooks/useLocalStorage';
+
 
 interface Inputs {
     username : string,
@@ -11,6 +14,8 @@ interface Inputs {
 export default function LoginForm() {
 
     const [loginError,setLoginError] = useState<boolean>(false);
+    const [user, setUser] = useLocalStorage('user', []);
+    const navigate = useNavigate();
 
 const {
     register,
@@ -20,15 +25,25 @@ const {
 
 const onSubmit: SubmitHandler<Inputs> = async(data) => {
     try {
-        const response = await axios.get('http://127.0.0.1:8080/login', { params : {username : data.username, password : data.password}});
+        const response = await axiosInstance.get('/login', {
+            params: { username: data.username, password: data.password },
+          });
         if(response.data[0].username === data.username && response.data[0].password === data.password){
             setLoginError(false);
+            setUser(response.data[0]);
         }
      }
      catch(error){
         setLoginError(true);
      };
     }
+    
+    useEffect(() => {
+        if(user.length !== 0){
+            navigate('/Dashboard');
+        }
+
+    }, [user, navigate])
 
     return (
         <>

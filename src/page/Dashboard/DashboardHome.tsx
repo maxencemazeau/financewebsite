@@ -6,6 +6,7 @@ import DashboardGoals from "./DashboardGoals";
 import DashboardExpenses from "./DahsboardExpenses";
 import DashboardIncomes from "./DashboardIncomes";
 import Banner from "../Banner";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 export default function DashboardHome() {
 
