@@ -47,7 +47,7 @@ const options = {
   width: 500,
 };
 
-interface ExpenseChart {
+export interface ExpenseChart {
   expenseId : number,
   expenseAmount: number,
   purchaseDate: string
@@ -70,12 +70,9 @@ const DashboardChart = () => {
   const [dateType, setDateType] = useState<number>();
   const [dateModal, setDateModal] = useState<boolean>(false);
   const [dataError, setDataError] = useState<boolean>(false);
+  const [expenseData, setExpenseData] = useState<ExpenseChart[]>([]);
 
-  const monthlySums: any = {
-  };
-
-  console.log(monthArray);
-  
+  const monthlySums: any = {};  
 
   const [data, setData] = useState<ChartParams>({
     labels: [],
@@ -102,6 +99,7 @@ const DashboardChart = () => {
       const start = new Date(startDate);
       const end = new Date(endDate);
       const response = await useAxios.get(`/expenseByDate`, { params :{ userId: user.userId, startDate: start, endDate: end}});
+      setExpenseData(response.data);
       if(response.data.length === 0){
         setDataError(true);
       } else {
@@ -145,7 +143,7 @@ const DashboardChart = () => {
         <ul className="border px-4 w-full rounded-lg md:px-8">
           <div className="flex flex-col h-96">
             <div className='flex items-center'>
-              <ChartsTitle />
+              <ChartsTitle expenseData={expenseData}/>
             </div>
             <div className='flex pb-4'>
               <ChatsDropDown setDateModal={setDateModal} setStartDate={setStartDate} setEndDate={setEndDate} setDateType={setDateType}/>
