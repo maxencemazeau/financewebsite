@@ -3,6 +3,7 @@ import { Line } from 'react-chartjs-2';
 import useAxios from '../../hooks/useAxios';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import ChatsDropDown from '../../components/ChartDropDown';
+import monthArray from '../../data/MonthArray';
 
 import {
   Chart as ChartJS,
@@ -33,9 +34,14 @@ const options = {
   maintainAspectRatio: false,
   responsive: true,
   plugins: {
-    legend: {
-      display: false,
+
+  tooltip: {
+    callbacks: {
+      label: (context: any) => {
+        return `Amount : $${context.parsed.y}`
+      },
     },
+  }
   },
   height: 200,
   width: 500,
@@ -61,9 +67,14 @@ const DashboardChart = () => {
   const [startDate, setStartDate] = useState<string>('');
   const [endDate, setEndDate] = useState<string>('');
   const [user] = useLocalStorage('user', []);
-  const [userExpenseData, setUserExpenseData] = useState<ExpenseChart[]>([]);
+  const [dateType, setDateType] = useState<number>();
   const [dateModal, setDateModal] = useState<boolean>(false);
   const [dataError, setDataError] = useState<boolean>(false);
+
+  const monthlySums: any = {
+  };
+
+  console.log(monthArray);
   
 
   const [data, setData] = useState<ChartParams>({
@@ -90,23 +101,41 @@ const DashboardChart = () => {
   const dateCharts = async() => {
       const start = new Date(startDate);
       const end = new Date(endDate);
-      console.log(start + "" + end);
       const response = await useAxios.get(`/expenseByDate`, { params :{ userId: user.userId, startDate: start, endDate: end}});
       if(response.data.length === 0){
         setDataError(true);
       } else {
         setDataError(false);
       }
-      const dateFormat: ExpenseChart[] = response.data.map((item: any) => ({
+
+      if(dateType === 1 && dataError !== true){
+        
+          response.data.forEach((item: ExpenseChart) => {
+              const date = new Date(item.purchaseDate)
+              const mois = date.toLocaleString('default', {month : 'short'});
+              const amount = item.expenseAmount;
+
+              if (!monthlySums[mois]) {
+                monthlySums[mois] = 0;
+            }
+            monthlySums[mois] += amount;         
+          })
+
+          setData({labels: monthArray, datasets: [{data: monthlySums, borderColor: 'rgba(96, 165, 250)',
+          backgroundColor: 'rgba(244, 244, 244)',}]})
+      } else {
+        const dateFormat: ExpenseChart[] = response.data.map((item: ExpenseChart) => ({
           ...item,
           purchaseDate: formattedDate(item.purchaseDate)
       })); 
 
-    const labelData = dateFormat.map((item) => item.purchaseDate);
-    const dataData = dateFormat.map((item) => item.expenseAmount);
+        const labelData = dateFormat.map((item) => item.purchaseDate);
+        const dataData = dateFormat.map((item) => item.expenseAmount);
 
-    setData({labels: labelData, datasets: [{data: dataData, borderColor: 'rgba(96, 165, 250)',
-    backgroundColor: 'rgba(244, 244, 244)',}]})
+        setData({labels: labelData, datasets: [{data: dataData, borderColor: 'rgba(96, 165, 250)',
+        backgroundColor: 'rgba(244, 244, 244)',}]})
+    
+      }
 
   }
 
@@ -119,7 +148,7 @@ const DashboardChart = () => {
               <ChartsTitle />
             </div>
             <div className='flex pb-4'>
-              <ChatsDropDown setDateModal={setDateModal} setStartDate={setStartDate} setEndDate={setEndDate}/>
+              <ChatsDropDown setDateModal={setDateModal} setStartDate={setStartDate} setEndDate={setEndDate} setDateType={setDateType}/>
               {dataError && <p className="px-2 py-2 text-red-400 font-semibold">No data found for this period of time</p>}
               { dateModal && <ChartDateModal onClose={() => setDateModal(false)} setStartDate={setStartDate} setEndDate={setEndDate} />}
               </div>

@@ -4,11 +4,12 @@ import { start } from "repl"
 interface ChartDropDownProps {
     setDateModal: (value: boolean) => void,
     setStartDate: (value: string) => void,
-    setEndDate: (value: string) => void
+    setEndDate: (value: string) => void,
+    setDateType: (value: number) => void
 }
 
 
-const ChatsDropDown: React.FC<ChartDropDownProps> = ({ setDateModal, setStartDate, setEndDate }) => {
+const ChatsDropDown: React.FC<ChartDropDownProps> = ({ setDateModal, setStartDate, setEndDate, setDateType }) => {
 
     const menuItems = [
         ["Today", "bg-blue-600", "text-black"],
@@ -55,6 +56,7 @@ const ChatsDropDown: React.FC<ChartDropDownProps> = ({ setDateModal, setStartDat
                 const formattedDate = currentDate.toISOString();
                 setStartDate(formattedDate);
                 setEndDate(formattedDate);
+                setDateType(0);
                 break;
             case "Last Week":
                 endDate = new Date();
@@ -62,21 +64,25 @@ const ChatsDropDown: React.FC<ChartDropDownProps> = ({ setDateModal, setStartDat
                 startDate.setDate(endDate.getDate() - 7);
                 setStartDate(formattedDateToMidnight(startDate));
                 setEndDate(formattedDateToMidnight(endDate));
+                setDateType(0);
                 break;
             case "This Month":
                 startDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
                 endDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
                 setStartDate(formattedDateToMidnight(startDate));
                 setEndDate(formattedDateToMidnight(endDate));
+                setDateType(0);
                 break;
             case "This Year":
                 startDate = new Date(currentDate.getFullYear(), 0);
-                endDate = new Date(currentDate.getFullYear() + 1, 0)
+                endDate = new Date(currentDate.getFullYear() + 1, 0);
                 setStartDate(formattedDateToMidnight(startDate));
                 setEndDate(formattedDateToMidnight(endDate));
+                setDateType(1);
                 break;
             case "Personalize date":
                 setDateModal(true);
+                setDateType(0);
                 break;
         }
     }
