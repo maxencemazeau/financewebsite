@@ -10,10 +10,7 @@ import {
   CategoryScale,
   LinearScale,
   PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
+  LineElement
 } from 'chart.js';
 import ChartsTitle from '../../components/ChartTitle';
 import ChartDateModal from '../../components/ChartDateModal';
@@ -85,15 +82,18 @@ const DashboardChart = () => {
     ]});
 
   useEffect(() => {
+
       if(startDate && endDate){
         dateCharts();
       }
+
   }, [startDate, endDate])
 
   const formattedDate = (purchaseDate: string) => {
       const date = new Date(purchaseDate);
       return date.getDate();
   }
+  
 
   const dateCharts = async() => {
       const start = new Date(startDate);
@@ -106,7 +106,7 @@ const DashboardChart = () => {
         setDataError(false);
       }
 
-      if(dateType === 1 && dataError !== true){
+      if(dateType === 1){
         
           response.data.forEach((item: ExpenseChart) => {
               const date = new Date(item.purchaseDate)
