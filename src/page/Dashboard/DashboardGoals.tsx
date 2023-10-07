@@ -42,7 +42,7 @@ export default function DashboardGoals(){
                     </thead>
                     <tbody className="text-gray-600 divide-y">
                     {userGoal.map((item, goalId) => (
-                                <TableContent key={goalId} content={{data : [item.goalName, item.targetAmount]}} />
+                                <TableContent key={goalId} data={[item.goalName, item.targetAmount]} />
                                 ))}
                          
                     </tbody>
