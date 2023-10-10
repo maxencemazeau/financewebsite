@@ -21,12 +21,14 @@ export default function ExpenseTable(){
     const [user] = useLocalStorage('user', []);
     const [userExpense, setUserExpense] = useState<Expense[]>([]);
     const [modalState, setModalState] = useState<boolean>(false);
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [totalPage, setTotalPage] = useState<number>(0);
 
     useEffect(() => {
        const fetch = async() => {
-            const response = await useAxios.get(`/expenseByUser/${user.userId}`);
-            const expenses: Expense[] = response.data;
-
+            const response = await useAxios.get(`/expensePagination`, {params: {userId: user.userId, page: currentPage }});
+            const expenses: Expense[] = response.data.expense;
+            setTotalPage(response.data.totalPage);
             expenses.forEach((userExpense: Expense) => {
                 const date = new Date(userExpense.purchaseDate);
                 userExpense.purchaseDate = date.toLocaleDateString();
@@ -36,7 +38,17 @@ export default function ExpenseTable(){
         }
 
         fetch();
-    },[user.userId])
+    },[user.userId, currentPage])
+
+    const onPageNext = () => {
+        setCurrentPage(currentPage + 1);
+        console.log(currentPage)
+    }
+
+    const onPagePrevious = () => {
+        setCurrentPage(currentPage - 1);
+        console.log(currentPage)
+    }
 
     
 
@@ -57,16 +69,16 @@ export default function ExpenseTable(){
                             <th className="py-3 px-6">Expenses</th>
                             <th className="py-3 px-6"></th>
                             <th className="py-3 px-6"></th>
-                            <th className="py-3 px-6"></th>
-                            <th className="py-3 px-6"></th>
-                            <th className="py-3 px-6"></th>
+                            <th className="py-3 px-6 hidden md:table-cell"></th>
+                            <th className="py-3 px-6 hidden md:table-cell"></th>
+                            <th className="py-3 px-6 hidden md:table-cell"></th>
                         </tr>
                         <tr>
                             <th className="py-3 px-6">Category</th>
                             <th className="py-3 px-6">Product</th>
-                            <th className="py-3 px-6">Date</th>
-                            <th className="py-3 px-6">Buyer</th>
-                            <th className="py-3 px-6">Amount</th> 
+                            <th className="py-3 px-6 hidden md:table-cell">Date</th>
+                            <th className="py-3 px-6 hidden md:table-cell">Buyer</th>
+                            <th className="py-3 px-6 hidden md:table-cell">Amount</th> 
                             <th></th>               
                         </tr>
                         
@@ -82,7 +94,7 @@ export default function ExpenseTable(){
                          <tr>
                             <td className="py-3 px-6 whitespace-nowrap"  colSpan={6}>
                                 <div>
-                                    <span className="block text-gray-700 text-sm font-medium"><Pagination /></span>
+                                    <span className="block text-gray-700 text-sm font-medium"><Pagination totalPage={totalPage} currentPage={currentPage} setCurrentPage={setCurrentPage} onPagePrevious={onPagePrevious} onPageNext={onPageNext}/></span>
                                 </div>
                             </td>
                         </tr>

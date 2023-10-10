@@ -26,7 +26,7 @@ export default function ExpenseHome() {
        
         <div className="flex flex-col lg:flex-row lg:ml-10">
           
-          <div className="w-full lg:w-3/4">
+          <div className="w-full lg:w-full">
             <ExpenseTable />
           </div>
         </div>

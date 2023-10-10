@@ -24,7 +24,11 @@ const TableContent: React.FC<Content> = ({ data, option }) => {
                         ))}
 
                         <td>
-                                {option && <p>Edit / Delete</p>}
+                                {option &&
+                                <div> 
+                                    <button className='px-4'>Edit </button> 
+                                    <button>Delete</button> 
+                                </div>    }
                             </td>
                     </tr>
         </>
