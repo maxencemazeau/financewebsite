@@ -50,13 +50,16 @@ export default function ExpenseTable(){
         console.log(currentPage)
     }
 
+    const onSubmit = () => {
+        setModalState(false);
+    }
     
 
     return(
         <>
         <div className="px-4 md:px-8 lg:pl-2 lg:pr-8">
             <Button onClick={() => setModalState(true)} label={"Add Expense"} style={"bg-blue-400 my-6 font-meduim"}/>
-            {modalState && <ModalForm onClose={() => setModalState(false)}/>}
+            {modalState && <ModalForm onClose={() => setModalState(false)} title={"Add a new expense"} formSubmit={onSubmit} formFields={[{name:"Expense name"}, {name: "Cost"}, {name: "Buyer name"}, {name: "Date"}]}/>}
         </div>
         <section className="pb-14">
       <div className="w-full mx-auto px-4 md:px-8 lg:pl-2 lg:pr-8">

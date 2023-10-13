@@ -1,13 +1,37 @@
 import { useState } from "react"
+import { useForm, SubmitHandler } from 'react-hook-form';
 
 interface ModalState{
         onClose: () => void,
+        formSubmit: (data: Inputs) => void,
+        title: string,
+        formFields: { name: string}[]
 }
 
-function ModalForm({ onClose }: ModalState) {
+interface Inputs{
+    [key: string | number]: string | number
+}   
+
+
+function ModalForm({ onClose, formSubmit, title, formFields }: ModalState) {
+
+    const {
+        register,
+        handleSubmit,
+        formState: {errors},
+    } = useForm<Inputs>()
 
     const handleClose = () => {
         onClose();
+    }
+
+    const onSubmit: SubmitHandler<Inputs> = async(data) => {
+        try{
+            console.log(data);
+            formSubmit(data);
+        } catch(err) {
+            
+        }
     }
 
     return (
@@ -17,7 +41,7 @@ function ModalForm({ onClose }: ModalState) {
                     <div className="relative w-full max-w-lg mx-auto bg-white rounded-md shadow-lg">
                         <div className="flex items-center justify-between p-4 border-b">
                             <h4 className="text-lg font-medium text-gray-800">
-                                Terms and agreements
+                                {title}
                             </h4>
                             <button className="p-2 text-gray-400 rounded-md hover:bg-gray-100"
                                 onClick={handleClose}
@@ -27,21 +51,33 @@ function ModalForm({ onClose }: ModalState) {
                                 </svg>
                             </button>
                         </div>
-                        <div className="space-y-2 p-4 mt-3 text-[15.5px] leading-relaxed text-gray-500">
-                            <p>
-                                Commodo eget a et dignissim dignissim morbi vitae, mi. Mi aliquam sit ultrices enim cursus. Leo sapien, pretium duis est eu volutpat interdum eu non. Odio eget nullam elit laoreet. Libero at felis nam at orci venenatis rutrum nunc. Etiam mattis ornare pellentesque iaculis enim.
-                            </p>
-                            <p>
-                                Felis eu non in aliquam egestas placerat. Eget maecenas ornare venenatis lacus nunc, sit arcu. Nam pharetra faucibus eget facilisis pulvinar eu sapien turpis at. Nec aliquam aliquam blandit eu ipsum.
-                            </p>
-                        </div>
+                        <main className="w-full flex flex-col items-center justify-center px-4">
+            <div className="max-w-sm w-full text-gray-600">
+                <form
+                    className="mt-8 space-y-5"
+                >
+                    {formFields.map((field: any,index: number) => (
+                        <div key={index}>
+                        <label className="font-medium">
+                            {field.name}
+                        </label>
+                        <input
+                            type="text"
+                            {...register(field.name, { required : true})}
+                            className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                        />
+                    </div>
+                    ))}
+                </form>
+            </div>
+        </main>
                         <div className="flex items-center gap-3 p-4 mt-5 border-t">
-                            <button className="px-6 py-2 text-white bg-indigo-600 rounded-md outline-none ring-offset-2 ring-indigo-600 focus:ring-2"
-                                onClick={handleClose}
+                            <button className="px-6 py-2 text-white bg-green-600 rounded-md outline-none ring-offset-2 ring-green-600 focus:ring-2"
+                                onClick={handleSubmit(onSubmit)}
                             >
                                 Accept
                             </button>
-                            <button className="px-6 py-2 text-gray-800 border rounded-md outline-none ring-offset-2 ring-indigo-600 focus:ring-2"
+                            <button className="px-6 py-2 text-gray-800 border rounded-md outline-none ring-offset-2 ring-red-600 focus:ring-2"
                                 onClick={handleClose}
                             >
                                 Cancel
