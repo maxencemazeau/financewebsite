@@ -1,11 +1,13 @@
 import { useState } from "react"
 import { useForm, SubmitHandler } from 'react-hook-form';
+import CategoryDropdown from "./CategoryDropdown";
 
 interface ModalState{
         onClose: () => void,
         formSubmit: (data: Inputs) => void,
         title: string,
-        formFields: { name: string}[]
+        formFields: { name: string}[],
+        category?: boolean
 }
 
 interface Inputs{
@@ -13,7 +15,7 @@ interface Inputs{
 }   
 
 
-function ModalForm({ onClose, formSubmit, title, formFields }: ModalState) {
+function ModalForm({ onClose, formSubmit, title, formFields, category }: ModalState) {
 
     const {
         register,
@@ -68,6 +70,7 @@ function ModalForm({ onClose, formSubmit, title, formFields }: ModalState) {
                         />
                     </div>
                     ))}
+                    {category && <CategoryDropdown />}
                 </form>
             </div>
         </main>

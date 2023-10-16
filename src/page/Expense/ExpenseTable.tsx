@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Button from "../../components/Button";
 import Pagination from "../../components/Pagination";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import TableContent from "../../components/TableContent";
 import useAxios from "../../hooks/useAxios";
-import ModalForm from "../../components/ModalForm";
 
 interface Expense{
     expenseId : number,
@@ -20,7 +18,6 @@ export default function ExpenseTable(){
 
     const [user] = useLocalStorage('user', []);
     const [userExpense, setUserExpense] = useState<Expense[]>([]);
-    const [modalState, setModalState] = useState<boolean>(false);
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [totalPage, setTotalPage] = useState<number>(0);
 
@@ -49,18 +46,10 @@ export default function ExpenseTable(){
         setCurrentPage(currentPage - 1);
         console.log(currentPage)
     }
-
-    const onSubmit = () => {
-        setModalState(false);
-    }
     
 
     return(
         <>
-        <div className="px-4 md:px-8 lg:pl-2 lg:pr-8">
-            <Button onClick={() => setModalState(true)} label={"Add Expense"} style={"bg-blue-400 my-6 font-meduim"}/>
-            {modalState && <ModalForm onClose={() => setModalState(false)} title={"Add a new expense"} formSubmit={onSubmit} formFields={[{name:"Expense name"}, {name: "Cost"}, {name: "Buyer name"}, {name: "Date"}]}/>}
-        </div>
         <section className="pb-14">
       <div className="w-full mx-auto px-4 md:px-8 lg:pl-2 lg:pr-8">
       <ul className="border w-full rounded-lg">
