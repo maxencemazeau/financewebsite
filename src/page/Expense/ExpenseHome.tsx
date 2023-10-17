@@ -1,15 +1,14 @@
 import React, { useState } from 'react'
 import ExpenseTable from './ExpenseTable'
 import DashboardNavBar from '../Dashboard/DashboardNavBar'
-import ModalForm from '../../components/ModalForm';
 import Banner from '../Banner';
-import Button from '../../components/Button';
 import ExpenseChart from '../../components/ExpenseChart';
+import AddExpense from '../../components/AddExpense';
+import AddCategory from '../../components/AddCategory';
 
 export default function ExpenseHome() {
 
     const [headerHeight, setHeaderHeight] = useState("h-16");
-    const [modalState, setModalState] = useState<boolean>(false);
 
     const handleHeaderHeight = (isExpanded: any) => {
         if (isExpanded) {
@@ -18,10 +17,6 @@ export default function ExpenseHome() {
             setHeaderHeight("h-16");
         }
     };
-
-    const onSubmit = () => {
-        setModalState(false);
-    }
 
     return (
 
@@ -46,10 +41,10 @@ export default function ExpenseHome() {
                 </div>
                 <div className="flex lg:flex-row lg:ml-10">
                     <div className="w-full lg:w-full">
-                    <div className="px-4 md:px-8 lg:pl-2 lg:pr-8">
-            <Button onClick={() => setModalState(true)} label={"Add Expense"} style={"bg-blue-400 my-6 font-meduim"}/>
-            {modalState && <ModalForm category={true} onClose={() => setModalState(false)} title={"Add a new expense"} formSubmit={onSubmit} formFields={[{name:"Expense name"}, {name: "Cost"}, {name: "Buyer name"}, {name: "Date"}]}/>}
-        </div>
+                        <div className="flex space-x-4 px-4 md:px-8 lg:pl-2 lg:pr-8">
+                            <AddExpense />
+                            <AddCategory />
+                        </div>
                         <ExpenseTable />
                     </div>
                 </div>

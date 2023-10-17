@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import ModalForm from './ModalForm';
+import ModalForm from './Modal/ModalForm';
 
 
 interface Content {
     data: (string | number)[],
-    option?: boolean
+    option?: boolean,
+    onDelete?: () => void
 }
 
 
-const TableContent: React.FC<Content> = ({ data, option }) => {
+const TableContent: React.FC<Content> = ({ data, option, onDelete }) => {
 
     const [modalState, setModalState] = useState<boolean>(false);
 
@@ -20,10 +21,13 @@ const TableContent: React.FC<Content> = ({ data, option }) => {
         setModalState(true);
     }
 
+    const onDeleteButton = () => {
+        onDelete?.();
+    }
+
     return (
         <>
             <tr>
-
                 {data.map((rowData, idx) => (
                     <>
                         <td key={idx} className="py-3 px-6 whitespace-nowrap">
@@ -37,8 +41,8 @@ const TableContent: React.FC<Content> = ({ data, option }) => {
                 <td>
                     {option &&
                         <div>
-                            <button className='px-4' onClick={openEditModal}>Edit </button>
-                            <button>Delete</button>
+                            <button className='px-4 font-semibold text-black hover:text-blue-400' onClick={openEditModal}>Edit </button>
+                            <button className="text-red-400 font-semibold hover:text-red-800" onClick={onDeleteButton}>Delete</button>
                         </div>}
                 </td>
             </tr>

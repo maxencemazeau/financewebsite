@@ -3,6 +3,8 @@ import Pagination from "../../components/Pagination";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import TableContent from "../../components/TableContent";
 import useAxios from "../../hooks/useAxios";
+import ModalForm from "../../components/Modal/ModalForm";
+import ModalConfirmation from "../../components/Modal/ModalConfirmation";
 
 interface Expense{
     expenseId : number,
@@ -20,6 +22,9 @@ export default function ExpenseTable(){
     const [userExpense, setUserExpense] = useState<Expense[]>([]);
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [totalPage, setTotalPage] = useState<number>(0);
+    const [modalState, setModalState] = useState<boolean>(false)
+    const [expenseToDelete, setExpenseToDelete] = useState<number>(0)
+    const [deletedExpense, setDeletedExpense] = useState<boolean>(false);
 
     useEffect(() => {
        const fetch = async() => {
@@ -46,6 +51,23 @@ export default function ExpenseTable(){
         setCurrentPage(currentPage - 1);
         console.log(currentPage)
     }
+
+    const onDelete = async(id: number) => {
+        setModalState(true)
+        setExpenseToDelete(id);
+    }
+
+    const onConfirmation = async() => {
+        setModalState(false);
+
+        try{
+                 await useAxios.delete(`/deleteExpense/${expenseToDelete}`).then(() => setDeletedExpense(true));
+                 window.location.reload();
+                
+             } catch(error){
+    
+             }
+    }
     
 
     return(
@@ -54,7 +76,7 @@ export default function ExpenseTable(){
       <div className="w-full mx-auto px-4 md:px-8 lg:pl-2 lg:pr-8">
       <ul className="border w-full rounded-lg">
         <div className="flex h-100">
-
+            { modalState && <ModalConfirmation setModalState={setModalState} onConfirmation={onConfirmation}/> }
         <table className="w-full table-auto text-sm text-left">
                     <thead className=" font-medium border-b">
                         <tr className="bg-gray-50">
@@ -77,14 +99,14 @@ export default function ExpenseTable(){
                     </thead>
                     <tbody className="text-gray-600 divide-y">
                         {
-                            userExpense.map((item, idx) => (
+                            userExpense.map((item) => (
                                 <>
-                                <TableContent key={idx} data={[item.categoryName, item.expenseName , item.purchaseDate, item.buyerName, item.expenseAmount]} option={true} />
+                                <TableContent key={item.expenseId} data={[item.categoryName, item.expenseName , item.purchaseDate, item.buyerName, item.expenseAmount]} option={true} onDelete={() => onDelete(item.expenseId)} />
                                 </>
                             ))
                         }
                          <tr>
-                            <td className="py-3 px-6 whitespace-nowrap"  colSpan={6}>
+                            <td className="py-3 px-6 whitespace-nowrap" colSpan={6}>
                                 <div>
                                     <span className="block text-gray-700 text-sm font-medium"><Pagination totalPage={totalPage} currentPage={currentPage} setCurrentPage={setCurrentPage} onPagePrevious={onPagePrevious} onPageNext={onPageNext}/></span>
                                 </div>

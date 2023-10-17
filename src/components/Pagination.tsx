@@ -35,9 +35,9 @@ interface PaginationProps{
                             pages.map((item, idx) => (
                                 <li key={item}>
                                     {                                   
-                                            <a href="" onClick={() => getItem(item)} aria-current={currentPage == item ? "page" : false} className={`px-3 py-2 rounded-lg duration-150 hover:text-white hover:bg-indigo-600 ${currentPage == item ? "bg-blue-400 text-white font-medium" : ""}`}>
+                                            <button onClick={() => getItem(item)} aria-current={currentPage == item ? "page" : false} className={`px-3 py-2 rounded-lg duration-150 hover:text-white hover:bg-indigo-600 ${currentPage == item ? "bg-blue-400 text-white font-medium" : ""}`}>
                                                 {item}
-                                            </a>
+                                            </button>
                                     }
                                 </li>
                             ))
