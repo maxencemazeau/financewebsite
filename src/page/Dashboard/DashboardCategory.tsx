@@ -1,43 +1,42 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import CategoryCard from "../../components/CategoryCards"
+import axiosInstance from "../../hooks/useAxios"
+import useLocalStorage from "../../hooks/useLocalStorage"
 
-interface integrations{
-    title : string,
+interface Integrations{
+    categoryId: number,
+    categoryName : string,
     percent: number,
-    budget: number,
-    spend : number
+    budgetAmount: number,
+    totalExpense : number
 }
 
-const IntegrationProps : integrations[] = [
-    {
-        title: "Groceries",
-        percent: 86,
-        budget: 400,
-        spend: 300
-
-    }, {
-        title: "House",
-        percent: 86,
-        budget: 400,
-        spend: 300
-
-    }, {
-        title: "Game",
-        percent: 86,
-        budget: 1000,
-        spend: 2000
-
-    },
-    {
-        title: "Figma",
-        percent: 86,
-        budget: 10,
-        spend: 5
-
-    },
-]
-
 const DashboardCategory: React.FC= () =>{
+
+    const [user] = useLocalStorage('user', []);
+    const [userCategory, setUserCategory] = useState<Integrations[]>([])
+
+    useEffect(() => {
+        const fetch = async() => {
+            const response = await axiosInstance.get(`/userDashboardCategory/${user.userId}`);
+            const userCategories: Integrations[] = response.data; 
+
+            userCategories.forEach((userCategory: Integrations) => {
+                   const categoryId =  userCategory.categoryId;
+                   const categoryName = userCategory.categoryName;
+                   const budgetAmount = userCategory.budgetAmount;
+                   const expenseAmount = userCategory.totalExpense;
+
+                   const percent = Math.floor((expenseAmount / budgetAmount) * 100);
+
+                   userCategory.percent = percent;
+            });
+            setUserCategory([...userCategories]);
+        }
+
+        fetch();
+
+    },[])
 
 return(
     <>
@@ -45,10 +44,10 @@ return(
                 <div className="w-full mx-auto px-4 md:px-8">
                 <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">    
                 {
-                    IntegrationProps.map((item, idx: number) => (
+                    userCategory.map((item, idx: number) => (
                         <CategoryCard
                             key={idx}
-                            category={{title : item.title, percent: item.percent, budget: item.budget, spend: item.spend}}
+                            category={{title : item.categoryName, percent: item.percent, expenseAmount: item.totalExpense, budgetAmount: item.budgetAmount}}
                         />
                     ))
                 }

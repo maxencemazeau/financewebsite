@@ -1,4 +1,5 @@
 import React, { useState } from 'react'; 
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 interface DashboardNavBarProps {
     handleHeight: (isExpanded: boolean) => void;
@@ -6,11 +7,16 @@ interface DashboardNavBarProps {
 
 const Header : React.FC<DashboardNavBarProps> = ({ handleHeight }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [, ,clearUserData] = useLocalStorage('user', []);
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
     handleHeight(!isExpanded);
   };
+
+  const Logout = () => {
+    clearUserData();
+  }
 
 
   return (
@@ -76,6 +82,15 @@ const Header : React.FC<DashboardNavBarProps> = ({ handleHeight }) => {
               className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-700"
             >
               Back to website
+            </a>
+          </li>
+          <li className="bg-red-400 rounded-md">
+            <a
+              onClick={Logout}
+              href='/login'
+              className="block rounded-lg px-4 py-2 text-sm text-white font-semibold"
+            >
+              Disconnect
             </a>
           </li>
         </ul>

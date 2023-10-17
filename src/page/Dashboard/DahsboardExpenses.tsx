@@ -1,45 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import useAxios from '../../hooks/useAxios';
+import useLocalStorage from '../../hooks/useLocalStorage';
+import TableContent from '../../components/TableContent';
+
+interface Expense{
+    expenseId : number,
+    categoryName: string,
+    expenseName: string,
+    purchaseDate : string,
+    buyerName: string,
+    expenseAmount : number
+
+}
 
 export default function DashboardExpenses(){
 
-    const tableItems = [
-        {
-            expenseType: "Grocery",
-            productName: "Chocolat",
-            buyDate: "23/07/2023",
-            buyerName: "Maxence",
-            amount: "40",
-        },
-        {
-            expenseType: "Grocery",
-            productName: "Chocolat",
-            buyDate: "23/07/2023",
-            buyerName: "Maxence",
-            amount: "40",
-        },
-        {
-            expenseType: "Grocery",
-            productName: "Chocolat",
-            buyDate: "23/07/2023",
-            buyerName: "Maxence",
-            amount: "40",
-        },
-        {
-            expenseType: "Grocery",
-            productName: "Chocolat",
-            buyDate: "23/07/2023",
-            buyerName: "Maxence",
-            amount: "40",
-        },
-        {
-            expenseType: "Grocery",
-            productName: "Chocolat",
-            buyDate: "23/07/2023",
-            buyerName: "Maxence",
-            amount: "40",
-        },
-        
-    ]
+    const [user] = useLocalStorage('user', []);
+    const [userExpense, setUserExpense] = useState<Expense[]>([]);
+
+
+    useEffect(() => {
+       const fetch = async() => {
+            const response = await useAxios.get(`/expenseByUser/${user.userId}`);
+            const expenses: Expense[] = response.data;
+
+            expenses.forEach((userExpense: Expense) => {
+                const date = new Date(userExpense.purchaseDate);
+                userExpense.purchaseDate = date.toLocaleDateString();
+            })
+
+            setUserExpense(expenses);
+        }
+
+        fetch();
+    },[user.userId])
 
     return(
         <>
@@ -69,26 +63,8 @@ export default function DashboardExpenses(){
                     </thead>
                     <tbody className="text-gray-600 divide-y">
                         {
-                            tableItems.map((item, idx) => (
-                                <tr key={idx}>
-                                    <td className="py-3 px-6 whitespace-nowrap">
-                                        <div>
-                                            <span className="block text-gray-700 text-sm font-medium">{item.expenseType}</span>
-                                        </div>
-                                    </td>
-                                    <td  className=" py-3 px-6 whitespace-nowrap">
-                                        <span className="block text-gray-700 text-sm font-medium">{item.productName}</span>
-                                    </td>
-                                    <td  className=" py-3 px-6 whitespace-nowrap">
-                                        <span className="block text-gray-700 text-sm font-medium">{item.buyDate}</span>
-                                    </td>
-                                    <td  className=" py-3 px-6 whitespace-nowrap">
-                                        <span className="block text-gray-700 text-sm font-medium">{item.buyerName}</span>
-                                    </td>
-                                    <td  className=" py-3 px-6 whitespace-nowrap">
-                                        <span className="block text-gray-700 text-sm font-medium">{item.amount} CAD</span>
-                                    </td>
-                                </tr>
+                            userExpense.map((item, idx) => (
+                                <TableContent key={idx} data={[item.categoryName, item.expenseName , item.purchaseDate, item.buyerName, item.expenseAmount]} />
                             ))
                         }
                     </tbody>

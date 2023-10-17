@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Banner from '../Banner';
 import axiosInstance from '../../hooks/useAxios';
+import useLocalStorage from '../../hooks/useLocalStorage';
+
 
 interface Inputs {
     username : string,
@@ -12,6 +14,7 @@ interface Inputs {
 export default function LoginForm() {
 
     const [loginError,setLoginError] = useState<boolean>(false);
+    const [user, setUser] = useLocalStorage('user', []);
     const navigate = useNavigate();
 
 const {
@@ -27,13 +30,20 @@ const onSubmit: SubmitHandler<Inputs> = async(data) => {
           });
         if(response.data[0].username === data.username && response.data[0].password === data.password){
             setLoginError(false);
-            navigate('/Dashboard');
+            setUser(response.data[0]);
         }
      }
      catch(error){
         setLoginError(true);
      };
     }
+    
+    useEffect(() => {
+        if(user.length !== 0){
+            navigate('/Dashboard');
+        }
+
+    }, [user, navigate])
 
     return (
         <>

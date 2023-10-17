@@ -2,8 +2,8 @@ import React from 'react';
 
 interface Category {
     title: string;
-    spend: number;
-    budget: number;
+    expenseAmount : number;
+    budgetAmount: number;
     percent: number;
 }
 
@@ -20,7 +20,7 @@ const CategoryCard: React.FC<CategoryProps> = ({ category }) => {
                         <h4 className="text-gray-800 font-semibold">{category.title}</h4>
                         <div className="text-gray-800">
                             <p>
-                                Budget: {category.spend} / {category.budget}
+                                Budget: {category.expenseAmount} / {category.budgetAmount}
                             </p>
                         </div>
                     </div>
