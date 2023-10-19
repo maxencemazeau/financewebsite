@@ -1,11 +1,11 @@
-import Button from './Button'
+import Button from '../Button'
 import React, { useState, useEffect } from 'react'
-import ModalForm from './Modal/ModalForm'
-import useAxios from '../hooks/useAxios'
-import useLocalStorage from '../hooks/useLocalStorage'
+import ModalForm from '../Modal/ModalForm'
+import useAxios from '../../hooks/useAxios'
+import useLocalStorage from '../../hooks/useLocalStorage'
 
 export default function AddCategory(){
-
+    
     const [user] = useLocalStorage('user', []);
     const [modalState, setModalState] = useState<boolean>(false);
 

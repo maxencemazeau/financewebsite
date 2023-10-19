@@ -87,13 +87,6 @@ const DashboardChart = () => {
         dateCharts();
       }
 
-      return () => {
-        const chart = ChartJS.instances[0];
-        if (chart) {
-          chart.destroy();
-        }
-      };
-
   }, [startDate, endDate])
 
   const formattedDate = (purchaseDate: string) => {

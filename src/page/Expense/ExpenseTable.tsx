@@ -3,7 +3,6 @@ import Pagination from "../../components/Pagination";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import TableContent from "../../components/TableContent";
 import useAxios from "../../hooks/useAxios";
-import ModalForm from "../../components/Modal/ModalForm";
 import ModalConfirmation from "../../components/Modal/ModalConfirmation";
 
 interface Expense{
@@ -24,7 +23,6 @@ export default function ExpenseTable(){
     const [totalPage, setTotalPage] = useState<number>(0);
     const [modalState, setModalState] = useState<boolean>(false)
     const [expenseToDelete, setExpenseToDelete] = useState<number>(0)
-    const [deletedExpense, setDeletedExpense] = useState<boolean>(false);
 
     useEffect(() => {
        const fetch = async() => {
@@ -61,7 +59,7 @@ export default function ExpenseTable(){
         setModalState(false);
 
         try{
-                 await useAxios.delete(`/deleteExpense/${expenseToDelete}`).then(() => setDeletedExpense(true));
+                 await useAxios.delete(`/deleteExpense/${expenseToDelete}`);
                  window.location.reload();
                 
              } catch(error){

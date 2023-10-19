@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import ExpenseTable from './ExpenseTable'
 import DashboardNavBar from '../Dashboard/DashboardNavBar'
 import Banner from '../Banner';
-import ExpenseChart from '../../components/ExpenseChart';
-import AddExpense from '../../components/AddExpense';
-import AddCategory from '../../components/AddCategory';
+import ExpenseChart from '../../components/Expense/ExpenseChart';
+import AddExpense from '../../components/Expense/AddExpense';
+import AddCategory from '../../components/Expense/AddCategory';
 
 export default function ExpenseHome() {
 

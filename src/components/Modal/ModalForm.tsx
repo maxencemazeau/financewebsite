@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { useForm, SubmitHandler } from 'react-hook-form';
 import CategoryDropdown from "../CategoryDropdown";
 
@@ -30,7 +29,7 @@ function ModalForm({ onClose, formSubmit, title, formFields, category }: ModalSt
     const onSubmit: SubmitHandler<Inputs> = async(data) => {
         try{
             formSubmit(data);
-        } catch(err) {
+        } catch(errors) {
             
         }
     }
@@ -62,11 +61,17 @@ function ModalForm({ onClose, formSubmit, title, formFields, category }: ModalSt
                         <label className="font-medium">
                             {field.name}
                         </label>
+                        { field.name === "Date" ? 
                         <input
+                        type="date"
+                        {...register(field.name, { required : true, maxLength : 50})}
+                        className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                    />
+                    : <input
                             type="text"
                             {...register(field.name, { required : true, maxLength : 50})}
                             className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
-                        />
+                        /> }  
                     </div>
                     ))}
                     {category && <CategoryDropdown />}
