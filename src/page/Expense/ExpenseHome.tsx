@@ -5,6 +5,7 @@ import Banner from '../Banner';
 import ExpenseChart from '../../components/Expense/ExpenseChart';
 import AddExpense from '../../components/Expense/AddExpense';
 import AddCategory from '../../components/Expense/AddCategory';
+import CategoryTable from './CategoryTable';
 
 export default function ExpenseHome() {
 
@@ -40,13 +41,14 @@ export default function ExpenseHome() {
                     </div>
                 </div>
                 <div className="flex lg:flex-row lg:ml-10">
-                    <div className="w-full lg:w-full">
+                    <div className="w-full lg:w-3/4">
                         <div className="flex space-x-4 px-4 md:px-8 lg:pl-2 lg:pr-8">
                             <AddExpense />
                             <AddCategory />
-                        </div>
+                        </div> 
                         <ExpenseTable />
                     </div>
+                    <CategoryTable />
                 </div>
             </div>
         </div>
