@@ -25,10 +25,12 @@ const TableContent: React.FC<Content> = ({ data, option, onDelete }) => {
         onDelete?.();
     }
 
+    const isMobile = window.innerWidth <= 748;
+
     return (
         <>
             <tr>
-                {data.map((rowData, idx) => (
+                {data.slice(0, isMobile ? 3 : data.length).map((rowData, idx) => (
                     <>
                         <td key={idx} className="py-3 px-6 whitespace-nowrap">
                             <div>
@@ -38,8 +40,25 @@ const TableContent: React.FC<Content> = ({ data, option, onDelete }) => {
                     </>
                 ))}
 
+                {isMobile &&
+                    <td>
+                        <button>
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            height="1em"
+                            width="1em"
+                        >
+                            <path fill="none" d="M0 0h24v24H0z" />
+                            <path d="M12 3c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 14c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-7c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
+                        </svg>
+                        </button>
+                    </td>
+
+                }
+
                 <td>
-                    {option &&
+                    {option && !isMobile &&
                         <div>
                             <button className='px-4 font-semibold text-black hover:text-blue-400' onClick={openEditModal}>Edit </button>
                             <button className="text-red-400 font-semibold hover:text-red-800" onClick={onDeleteButton}>Delete</button>

@@ -1,12 +1,14 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import CategoryDropdown from "../CategoryDropdown";
+import React, { useState } from 'react'
 
 interface ModalState{
         onClose: () => void,
         formSubmit: (data: Inputs) => void,
         title: string,
         formFields?: { name: string}[],
-        category?: boolean
+        category?: boolean,
+        setCategoryId?: (value: number) => void,
 }
 
 interface Inputs{
@@ -14,7 +16,9 @@ interface Inputs{
 }   
 
 
-function ModalForm({ onClose, formSubmit, title, formFields, category }: ModalState) {
+function ModalForm({ onClose, formSubmit, title, formFields, category, setCategoryId }: ModalState) {
+
+    const [selectedCategory, setSelectedCategory] = useState<number>();
 
     const {
         register,
@@ -26,13 +30,20 @@ function ModalForm({ onClose, formSubmit, title, formFields, category }: ModalSt
         onClose();
     }
 
+
     const onSubmit: SubmitHandler<Inputs> = async(data) => {
         try{
-            formSubmit(data);
+            await formSubmit(data);
+            if(selectedCategory !== undefined){
+            await setCategoryId?.(selectedCategory);
+
+            }
         } catch(errors) {
             
         }
     }
+
+    console.log(selectedCategory)
 
     return (
             <div className="fixed inset-0 z-10 overflow-y-auto">
@@ -74,7 +85,12 @@ function ModalForm({ onClose, formSubmit, title, formFields, category }: ModalSt
                         /> }  
                     </div>
                     ))}
-                    {category && <CategoryDropdown />}
+                    {category && 
+                    <div>
+                        <CategoryDropdown setSelectedCategory={setSelectedCategory}/>
+                       
+                    </div>
+                    }
                 </form>
             </div>
         </main>

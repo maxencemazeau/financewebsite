@@ -40,7 +40,7 @@ export default function ExpenseHome() {
                         </div>
                     </div>
                 </div>
-                <div className="flex lg:flex-row lg:ml-10">
+                <div className="flex sm:flex-col md:flex-col lg:flex-row lg:ml-10">
                     <div className="w-full lg:w-3/4">
                         <div className="flex space-x-4 px-4 md:px-8 lg:pl-2 lg:pr-8">
                             <AddExpense />

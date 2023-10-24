@@ -35,21 +35,21 @@ const Header : React.FC<DashboardNavBarProps> = ({ handleHeight }) => {
           }`}
         >
           <li>
-            <button
-             
+            <a
+              href="/Dashboard"
               className="block mt-4 rounded-lg px-4 py-2 text-sm font-medium text-gray-700"
             >
               Dashboard
-            </button>
+            </a>
           </li>
 
           <li>
-            <button
-              
+            <a
+              href="/ExpenseHome"
               className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-700"
             >
               Expenses
-            </button>
+            </a>
           </li>
 
           <li>
