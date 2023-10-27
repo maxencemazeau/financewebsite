@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 
 interface ModalConfirmationProps{
@@ -7,6 +7,17 @@ interface ModalConfirmationProps{
 }
 
 export default function ModalConfirmation({setModalState, onConfirmation} :ModalConfirmationProps){
+
+    const [acceptButton, setAcceptButton] = useState<boolean>(true);
+
+    const onAccept = async() => {
+        setAcceptButton(false);
+    }
+
+    const onClose = async() => {
+        setAcceptButton(true);
+        onConfirmation();
+    }
 
     return(
         <div className="fixed inset-0 z-10 overflow-y-auto">
@@ -26,11 +37,19 @@ export default function ModalConfirmation({setModalState, onConfirmation} :Modal
                             </div>
                         </div>
                         <div className="items-center gap-2 mt-3 sm:flex">
-                            <button className="w-full mt-2 p-2.5 flex-1 text-white bg-indigo-600 rounded-md outline-none ring-offset-2 ring-indigo-600 focus:ring-2"
-                                onClick={onConfirmation}
+                          { acceptButton === true ?   
+                          <button className="w-full mt-2 p-2.5 flex-1 text-white bg-indigo-600 rounded-md outline-none ring-offset-2 ring-indigo-600 focus:ring-2"
+                                onClick={onAccept}
                             >
                                 Accept
                             </button>
+                            : 
+                            <button className="w-full mt-2 p-2.5 flex-1 text-white bg-indigo-600 rounded-md outline-none ring-offset-2 ring-indigo-600 focus:ring-2"
+                                onClick={onClose}
+                            >
+                                Close
+                            </button>
+                            }
                             <button className="w-full mt-2 p-2.5 flex-1 text-gray-800 rounded-md outline-none border ring-offset-2 ring-indigo-600 focus:ring-2"
                                 onClick={() => setModalState(false)}
                             >

@@ -99,7 +99,7 @@ export default function ExpenseTable(){
                         {
                             userExpense.map((item) => (
                                 <>
-                                <TableContent key={item.expenseId} data={[item.categoryName, item.expenseName , item.purchaseDate, item.buyerName, item.expenseAmount]} option={true} onDelete={() => onDelete(item.expenseId)} />
+                                <TableContent key={item.expenseId} data={[item.categoryName, item.expenseName , item.purchaseDate, item.buyerName, item.expenseAmount]} option={true} onDelete={() => onDelete(item.expenseId)} title={"Edit expense : " + item.expenseName} />
                                 </>
                             ))
                         }

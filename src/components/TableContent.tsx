@@ -5,11 +5,13 @@ import ModalForm from './Modal/ModalForm';
 interface Content {
     data: (string | number)[],
     option?: boolean,
-    onDelete?: () => void
+    onDelete?: () => void,
+    title?: string,
+    onEdit? : () => void
 }
 
 
-const TableContent: React.FC<Content> = ({ data, option, onDelete }) => {
+const TableContent: React.FC<Content> = ({ data, option, onDelete, title, onEdit }) => {
 
     const [modalState, setModalState] = useState<boolean>(false);
 
@@ -23,6 +25,10 @@ const TableContent: React.FC<Content> = ({ data, option, onDelete }) => {
 
     const onDeleteButton = () => {
         onDelete?.();
+    }
+
+    const onEditButton = () => {
+        onEdit?.();
     }
 
     const isMobile = window.innerWidth <= 748;
@@ -60,7 +66,7 @@ const TableContent: React.FC<Content> = ({ data, option, onDelete }) => {
                 <td>
                     {option && !isMobile &&
                         <div>
-                            <button className='px-4 font-semibold text-black hover:text-blue-400' onClick={openEditModal}>Edit </button>
+                            <button className='px-4 font-semibold text-black hover:text-blue-400' onClick={onEditButton}>Edit </button>
                             <button className="text-red-400 font-semibold hover:text-red-800" onClick={onDeleteButton}>Delete</button>
                         </div>}
                 </td>
@@ -70,7 +76,7 @@ const TableContent: React.FC<Content> = ({ data, option, onDelete }) => {
                 <ModalForm
                     category={false}
                     onClose={() => setModalState(false)}
-                    title={"Edit expense"}
+                    title={title}
                     formSubmit={onSubmit}
                     formFields={[
                         { name: "Expense name" },

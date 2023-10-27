@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 interface ModalState{
         onClose: () => void,
         formSubmit: (data: Inputs) => void,
-        title: string,
+        title?: string,
         formFields?: { name: string}[],
         category?: boolean,
         setCategoryId?: (value: number) => void,

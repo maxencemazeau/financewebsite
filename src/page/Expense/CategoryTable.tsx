@@ -3,6 +3,8 @@ import TableContent from '../../components/TableContent';
 import useAxios from '../../hooks/useAxios';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import Pagination from '../../components/Pagination';
+import ModalConfirmation from '../../components/Modal/ModalConfirmation';
+import ModalForm from '../../components/Modal/ModalForm';
 
 interface UserCategory{
     categoryId: number,
@@ -16,7 +18,10 @@ export default function CategoryTable(){
         const [user] = useLocalStorage('user', []);
         const [currentPage, setCurrentPage] = useState<number>(1);
         const [totalPage, setTotalPage] = useState<number>(0);
-        const [userCategory, setUserCategory] = useState<UserCategory[]>([])
+        const [userCategory, setUserCategory] = useState<UserCategory[]>([]);
+        const [modalState, setModalState] = useState<boolean>(false);
+        const [modalEdit, setModalEdit] = useState<boolean>(false);
+        const [selectedCategory, setSelectedCategory] = useState<any>([]);
 
     useEffect(() => {
         const fetch = async() => {
@@ -31,12 +36,24 @@ export default function CategoryTable(){
 
     const onPageNext = () => {
         setCurrentPage(currentPage + 1);
-        console.log(currentPage)
     }
 
     const onPagePrevious = () => {
         setCurrentPage(currentPage - 1);
-        console.log(currentPage)
+    }
+
+    const onEditSubmit = () => {
+
+    }
+
+    const onEdit = (categoryId : number, categoryName : string) => {
+        setSelectedCategory([categoryId, categoryName])
+        setModalEdit(true);
+    }  
+
+
+    const onConfirmation = () => {
+
     }
 
 
@@ -62,7 +79,7 @@ export default function CategoryTable(){
                     </thead>
                     <tbody className="text-gray-600 divide-y">
                     {userCategory.map((item) => (
-                                <TableContent key={item.categoryId} data={[item.categoryName, item.totalExpense, item.expenseCount]} />
+                                <TableContent key={item.categoryId} data={[item.categoryName, item.totalExpense]} option={true} onDelete={() => setModalState(true)} title={"Edit : " + item.categoryName} onEdit={() => onEdit(item.categoryId, item.categoryName)}/>
                                 ))}
                            <td className="py-3 px-6 whitespace-nowrap" colSpan={6}>
                                 <div>
@@ -76,6 +93,17 @@ export default function CategoryTable(){
        </ul>
        </div>
        </section> 
+        {modalEdit &&  <ModalForm
+                    category={false}
+                    onClose={() => setModalEdit(false)}
+                    title={"Edit : " + selectedCategory[1]}
+                    formSubmit={onEditSubmit}
+                    formFields={[
+                        { name: "Category name" }
+                    ]}
+                />
+}
+       {modalState && <ModalConfirmation onConfirmation={onConfirmation} setModalState={setModalState}/>}
         </>
     )
 }
